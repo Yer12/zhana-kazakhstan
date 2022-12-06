@@ -7,12 +7,11 @@
       background: #4D4D59;
       margin: 0;
       padding: 0;
-      padding-top: 45px;
     }
 
     #wrapper {
       margin: 0 auto;
-      width: 976px;
+      width: 1276px;
     }
 
     #frame {
@@ -20,7 +19,7 @@
       border-right-color: #45454F;
       border-bottom-color: #646A7D;
       background: black;
-      height: 324px;
+      height: calc(100vh - 50px);
       position: relative;
       margin-bottom: 15px;
       overflow: hidden;
@@ -32,23 +31,25 @@
       right: 2px;
       top: 2px;
       bottom: 2px;
-      background: #B0B0BF;
+      background: #317EF2;
       overflow: hidden;
     }
 
     #game .runner {
       position: absolute;
-      height: 38px;
-      width: 24px;
-      background: url('runner.png');
-      z-index: 5;
+      height: 70px;
+      width: 50px !important;
+        background-size: cover !important;
+        background: url('img/runu.gif') center center;
+        z-index: 5;
     }
 
     #game .building {
       position: absolute;
       bottom: 0;
-      background: #B0B0BF url('windows.png');
-      background: url('building-top.png') left top repeat-x, url('windows.png') left 90px;
+      /*background: #B0B0BF url('windows.png');*/
+      background: url('img/ground.png') no-repeat;
+        background-size: cover;
       z-index: 3;
     }
 
@@ -62,12 +63,12 @@
     }
 
     #game .paralaxbg1 {
-      background-image: url('paralax-bg-1.png');
+      background-image: url('img/city.png');
       z-index: 2;
     }
 
     #game .paralaxbg2 {
-      background-image: url('paralax-bg-2.png');
+      background-image: url('img/mountains.png');
       z-index: 1;
     }
 
@@ -125,7 +126,7 @@
     <a href="#" onclick="game.initialize(); return false;">Restart</a>
   </div>
   <script type="text/javascript">
-    var game = new Canabalt(document.getElementById('game'), {fps: 40}).start();
+    var game = new Canabalt(document.getElementById('game'), {fps: 100}).start();
   </script>
 </body>
 </html>

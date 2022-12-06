@@ -12,7 +12,7 @@ Canabalt = function(container, options) {
   this.buildings = [];
 
   // Milliseconds between frames
-  this.mbf = 1000 / this.readOption('fps');
+  this.mbf = 1500 / this.readOption('fps');
 
   this.initialize();
 };
@@ -276,10 +276,8 @@ Canabalt.prototype.draw = function() {
   // NOTE: it kinda sucks that we're changing the guy's width for every frame here...
   if (this.airborne) {
     this.runner.style.width = String(Canabalt.RUNNER_JUMPING_WIDTH) + 'px';
-    this.runner.style.backgroundPosition = String(-this.runnerFrame * Canabalt.RUNNER_JUMPING_WIDTH) + 'px bottom';
   } else {
     this.runner.style.width = String(Canabalt.RUNNER_WIDTH) + 'px';
-    this.runner.style.backgroundPosition = String(-this.runnerFrame * Canabalt.RUNNER_WIDTH) + 'px top';
   }
 
   // Draw paralax
@@ -404,7 +402,7 @@ Canabalt.Building = function(game, options) {
   this.type = Canabalt.Building.TYPE_NORMAL;
 
   this.width = 300 + Math.round(Math.random() * 1000);
-  this.height = 30 + Math.round(Math.random() * 100);
+  this.height = 200 + Math.round(Math.random() * 100);
   this.gap = Math.round(this.game.speed * 300);
   this.totalWidth = this.width + this.gap;
 
