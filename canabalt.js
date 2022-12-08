@@ -31,11 +31,11 @@ Canabalt.PARALAX_BG_1_SPEED = 0.3;
 Canabalt.PARALAX_BG_2_TOP_OFFSET = '100px';
 Canabalt.PARALAX_BG_2_SPEED = 0.2;
 
+Canabalt.CLOUD_OFFSET = '50px';
+Canabalt.CLOUD_SPEED = 0.15;
+
 Canabalt.PARALAX_FG_SPEED = 3;
 Canabalt.PARALAX_FG_INITIAL_WAIT = 3000;
-
-Canabalt.SHAKE_START = 3000;
-Canabalt.SHAKE_AMPLITUDE = 20;
 
 Canabalt.RUNNER_WIDTH = 24;
 Canabalt.RUNNER_HEIGHT = 38;
@@ -67,7 +67,6 @@ Canabalt.prototype.initialize = function() {
   this.speed = this.readOption('initialSpeed');
   this.distance = 0;
 
-  this.shakeDuration = Canabalt.SHAKE_START;
   
   // Runner variables
   this.airborne = false;
@@ -103,6 +102,12 @@ Canabalt.prototype.initialize = function() {
   }
   this.paralaxBg2Offset = 0;
 
+  // Cloud
+  if (!this.cloud) {
+      this.cloud = this.createDiv('cloud');
+  }
+  this.cloudOffset = 0;
+
   this.removeParalaxBeam();
   this.scheduleParalaxBeam(Canabalt.PARALAX_FG_INITIAL_WAIT);
 
@@ -115,7 +120,7 @@ Canabalt.prototype.initialize = function() {
   while (this.buildings.length) this.removeFirstBuilding();
 
   // Place the first building
-  this.addBuilding(new Canabalt.Building(this));
+  this.addBuilding(new Canabalt.DD(this));
 
   // Provide the viewport with an actual height property so that
   // absolute elements within it are positioned relative to its height
@@ -252,10 +257,6 @@ Canabalt.prototype.removeParalaxBeam = function() {
   this.paralaxBeamTimeout = null;
 };
 
-Canabalt.prototype.shake = function(duration) {
-  this.shakeDuration = duration;
-};
-
 // In order to prevent setting the top offset of the viewport in each
 // frame in which there is no shaking, this is a separate method from draw()
 // and only called when the shaking stops
@@ -268,7 +269,7 @@ Canabalt.prototype.draw = function() {
   for (var i = 0; i < this.buildings.length; ++i) {
     this.buildings[i].draw();
   }
-
+    console.log(this)
   // Draw runner
   this.runner.style.bottom = String(Math.round(this.y)) + 'px';
   this.runner.style.left = String(Math.round(this.x)) + 'px';
@@ -283,6 +284,7 @@ Canabalt.prototype.draw = function() {
   // Draw paralax
   this.paralaxBg1.style.backgroundPosition = String(Math.round(this.paralaxBg1Offset)) + 'px ' + Canabalt.PARALAX_BG_1_TOP_OFFSET;
   this.paralaxBg2.style.backgroundPosition = String(Math.round(this.paralaxBg2Offset)) + 'px ' + Canabalt.PARALAX_BG_2_TOP_OFFSET;
+  this.cloud.style.backgroundPosition = String(Math.round(this.cloudOffset)) + 'px ' + Canabalt.CLOUD_OFFSET;
 
   if (this.paralaxBeam) {
     this.paralaxBeam.style.left = String(Math.round(this.paralaxBeamOffset)) + 'px';
@@ -291,11 +293,6 @@ Canabalt.prototype.draw = function() {
   // Draw distance counter
   this.distanceCounter.innerHTML = String(Math.round(this.distance * Canabalt.DISTANCE_TO_METERS_COEFFICIENT)) + 'm';
 
-  // Since shaking the screen is mostly a random process that doesn't affect gameplay,
-  // calculate the shaking offset when drawing a frame instead of each cycle
-  if (this.shakeDuration) {
-    this.container.style.top = String(Math.round(Math.random() * Canabalt.SHAKE_AMPLITUDE)) + 'px';
-  }
 };
 
 // This is where most the game logic happens
@@ -369,6 +366,7 @@ Canabalt.prototype.cycle = function() {
   // Move paralax
   this.paralaxBg1Offset -= distance * Canabalt.PARALAX_BG_1_SPEED;
   this.paralaxBg2Offset -= distance * Canabalt.PARALAX_BG_2_SPEED;
+  this.cloudOffset -= distance * Canabalt.CLOUD_SPEED;
 
   if (this.paralaxBeam) {
     this.paralaxBeamOffset -= distance * Canabalt.PARALAX_FG_SPEED;
@@ -378,14 +376,6 @@ Canabalt.prototype.cycle = function() {
     }
   }
 
-  // Shake it baby
-  if (this.shakeDuration) {
-    this.shakeDuration -= elapsed;
-    if (this.shakeDuration < 0) {
-      this.shakeDuration = 0;
-      this.staightenViewport();
-    }
-  }
 
   // Check if we need to redraw
   if (this.elapsed > this.mbf) {
@@ -421,6 +411,32 @@ Canabalt.Building = function(game, options) {
 
   this.draw();
 };
+Canabalt.DD = function(game, options) {
+    this.game = game;
+    this.firstbuilding = true;
+    this.type = Canabalt.Building.TYPE_NORMAL;
+
+    this.width = this.game.viewportWidth - 100;
+    this.height = 300;
+    this.gap = Math.round(this.game.speed * 300);
+    this.totalWidth = this.width + this.gap;
+
+    this.left = 0;
+
+    this.endReached = false;
+    this.expired = false;
+
+    this.isIn = false;
+    this.isOut = false;
+
+    this.element = document.createElement('div');
+    this.element.className = 'building';
+    this.element.style.height = String(this.height) + 'px';
+    this.element.style.width = String(this.width) + 'px';
+
+    this.draw();
+};
+
 
 Canabalt.Building.TYPE_NORMAL= 1;
 Canabalt.Building.TYPE_CRANE = 2;
@@ -436,14 +452,51 @@ Canabalt.Building.prototype.move = function(distance) {
       this.game.currentBuilding = null;
       this.game.airborne = true;
       this.isOut = true;
+        console.log('not in building')
     }
   } else if (this.left <= this.game.x) {
     this.game.currentBuilding = this;
     this.isIn = true;
+      console.log('in building')
+
   }
 
   // Check if the end of the building + gap was reached and call
-  // an appropiate action (spawn a new building?)
+  // an appropriate action (spawn a new building?)
+  if (!this.endReached && (this.left + this.totalWidth <= this.game.viewportWidth)) {
+    this.game.addBuilding(new Canabalt.Building(this.game));
+    this.endReached = true;
+  }
+
+  // If the building leaves the left side of the screen then
+  // it has expired and has to be removed
+  if (!this.expired && (this.totalWidth + this.left <= 0)) {
+    this.game.removeFirstBuilding();
+    this.expired = true;
+  }
+
+  return this;
+};
+Canabalt.DD.prototype.move = function(distance) {
+  this.left -= distance;
+
+  // Check if this is now the current building
+  if (this.isIn) {
+    if (!this.isOut && this.left + this.width < this.game.x) {
+      this.game.currentBuilding = null;
+      this.game.airborne = true;
+      this.isOut = true;
+        console.log('not in building')
+    }
+  } else if (this.left <= this.game.x) {
+    this.game.currentBuilding = this;
+    this.isIn = true;
+      console.log('in building')
+
+  }
+
+  // Check if the end of the building + gap was reached and call
+  // an appropriate action (spawn a new building?)
   if (!this.endReached && (this.left + this.totalWidth <= this.game.viewportWidth)) {
     this.game.addBuilding(new Canabalt.Building(this.game));
     this.endReached = true;
@@ -465,3 +518,10 @@ Canabalt.Building.prototype.draw = function() {
   }
   return this;
 };
+Canabalt.DD.prototype.draw = function() {
+    if (!this.expired) {
+        this.element.style.left = String(this.left) + 'px';
+    }
+    return this;
+};
+
