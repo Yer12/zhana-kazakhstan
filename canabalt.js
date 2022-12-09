@@ -63,6 +63,7 @@ Canabalt.prototype.initialize = function() {
   // Reset cycle counter
   this.cycles = 0;
 
+
   // Reset speed and traveled distance
   this.speed = this.readOption('initialSpeed');
   this.distance = 0;
@@ -72,9 +73,11 @@ Canabalt.prototype.initialize = function() {
   this.airborne = false;
   this.jumping = false;
   this.ySpeed = 0;
-  this.y = 0;
+  this.y = 300;
 
-  // Copy some options to object space for quicker access
+
+
+    // Copy some options to object space for quicker access
   this.acceleration = this.readOption('acceleration');
   this.jumpImpulse = this.readOption('jumpImpulse');
   this.gravity = this.readOption('gravity');
@@ -86,6 +89,7 @@ Canabalt.prototype.initialize = function() {
   if (!this.runner) {
     this.runner = this.createDiv('runner');
   }
+  this.runner.classList.remove('die')
 
   this.runnerFrame = 0;
   this.runnerRunAnimationDistance = 0;
@@ -122,7 +126,9 @@ Canabalt.prototype.initialize = function() {
   // Place the first building
   this.addBuilding(new Canabalt.DD(this));
 
-  // Provide the viewport with an actual height property so that
+    console.log(this)
+
+    // Provide the viewport with an actual height property so that
   // absolute elements within it are positioned relative to its height
   // rather than its ancestor container
   this.container.style.height = String(this.container.offsetHeight) + 'px';
@@ -156,6 +162,7 @@ Canabalt.prototype.start = function() {
   return this;
 };
 
+// PAUSE
 Canabalt.prototype.stop = function() {
   if (!this.paused()) {
     this.stopInputCapture();
@@ -269,7 +276,6 @@ Canabalt.prototype.draw = function() {
   for (var i = 0; i < this.buildings.length; ++i) {
     this.buildings[i].draw();
   }
-    console.log(this)
   // Draw runner
   this.runner.style.bottom = String(Math.round(this.y)) + 'px';
   this.runner.style.left = String(Math.round(this.x)) + 'px';
@@ -340,13 +346,42 @@ Canabalt.prototype.cycle = function() {
     this.ySpeed -= this.gravity;
 
     var h = this.currentBuilding ? this.currentBuilding.height : 0;
+      // console.log(this.buildings)
+      // console.log('next building',this.buildings[1])
+    if (this.y < h) {
+        // this.y = h;
+        if(h - this.y > 10) {
+            console.log('game over');
+            // this.y = 0
+            clearInterval(this.interval);
+            delete this.interval;
+            this.runner.classList.add('die')
+        }
+        else {
+            this.y = h;
+            this.ySpeed = 0;
+            this.airborne = false;
+            this.falling = false;
+        }
+        console.log('die', this.y,'-' , h, '=', h - this.y)
 
-    if (this.y <= h) {
-      this.y = h;
-      this.ySpeed = 0;
-      this.airborne = false;
-      this.falling = false;
     }
+    //   if(this.airborne) {
+    //       console.log('jump')
+    //       if(this.y < h) {
+    //           this.y = 0;
+    //           console.log(h, this.y)
+    //           console.log('die')
+    //       }
+    //       else {
+    //           console.log('running')
+    //       }
+    //   }
+    //   else {
+    //       if(this.y < h) {
+    //           console.log('die 2')
+    //       }
+    //   }
   } else {
 
     this.runnerRunAnimationDistance += distance;

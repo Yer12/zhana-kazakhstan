@@ -1,115 +1,18 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Manrope';
-    font-style: normal;
-}
-
-#wrapper {
+.form {
     width: 100%;
     height: 100vh;
-}
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    height: 100px;
-    width: 100%;
-    background: #317EF2;
-}
-.header-item {
-    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 119.6%;
-}
-#frame {
-    height: calc(100% - 100px);
-    position: relative;
-    overflow: hidden;
 }
 
-#game {
-    height: 100%;
-    background: #317EF2;
-    overflow: hidden;
-}
-
-#game .runner {
-    position: absolute;
-    height: 70px;
-    width: 50px !important;
-    background-size: cover !important;
-    background: url('img/runu.gif') center center;
-    z-index: 5;
-}
-
-#game .building {
-    position: absolute;
-    bottom: 0;
-    /*background: #B0B0BF url('windows.png');*/
-    background: url('img/ground.png') no-repeat;
-    background-size: cover;
-    z-index: 3;
-}
-
-#game .paralaxbg1, #game .paralaxbg2, #game .cloud {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-repeat: repeat-x;
-}
-
-#game .paralaxbg1 {
-    background-image: url('img/city.png');
-    z-index: 3;
-}
-
-#game .paralaxbg2 {
-    background-image: url('img/mountains.png');
-    z-index: 2;
-}
-#game .cloud {
-    background-size: 200%;
-    background-image: url('img/cloud.png');
-    z-index: 1;
-}
-
-#game .paralaxbeam1, #game .paralaxbeam2 {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    z-index: 6;
-}
-
-#game .paralaxbeam1 {
-    width: 40px;
-    background: #35353D;
-}
-
-#game .paralaxbeam2 {
-    width: 128px;
-    background: url('paralax-fg-crossbeams.png');
-}
-
-#game .distance {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-family: sans-serif;
-    font-size: 15px;
-    font-weight: bolder;
-    color: white;
-    text-shadow: 2px 2px 0 black;
-    text-align: right;
-    z-index: 7;
-}
-
-a {
+.form a {
     text-decoration: none;
+    background: #317EF2;
+    color: white;
+    border-radius: 12px;
+    padding: 20px 40px;
+}
+.form a:hover {
+    background: #2a6dd2;
 }
