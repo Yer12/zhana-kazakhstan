@@ -40,11 +40,17 @@ body {
 
 #game .runner {
     position: absolute;
-    height: 70px;
-    width: 50px !important;
+    height: 100px;
+    width: 70px !important;
     background-size: cover !important;
-    background: url('img/runu.gif') center center;
+    /*background: url('img/runu.gif') center center;*/
     z-index: 5;
+}
+#game .runner svg {
+    margin-left:-25px;
+    margin-bottom: -92px;
+    width: 120px !important;
+    height: 100%;
 }
 
 .die {
@@ -60,6 +66,7 @@ body {
 #game .building {
     position: absolute;
     bottom: 0;
+    border: 1px solid;
     /*background: #B0B0BF url('windows.png');*/
     background: url('img/ground.png') no-repeat;
     background-size: cover;
@@ -109,17 +116,68 @@ body {
 
 #game .distance {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    left:50%;
     font-family: sans-serif;
-    font-size: 15px;
     font-weight: bolder;
     color: white;
-    text-shadow: 2px 2px 0 black;
+    background: #FFDC00;
+    min-width: 100px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset -2px -2px 0px #D5B800, inset 2px 2px 0px #FDFF89;
+    border-radius: 2px;
+    color: #2F70DF;
+    font-size: 15.7221px;
     text-align: right;
     z-index: 7;
 }
 
 a {
     text-decoration: none;
+}
+
+
+@media (max-width: 575px) {
+    .header {
+        height: 60px;
+    }
+    .header-item {
+        font-size: 10px;
+    }
+    #frame {
+        height: calc(100vh - 60px) !important;
+    }
+    #game {
+        height: calc(100vh - 0px) !important;
+    }
+    #game .runner {
+        /* display: flex;
+        justify-content: center;
+        align-items: center; */
+        height: 124px !important;
+        width: 72px !important;
+    }
+    .runner svg {
+        margin-left: -25px !important;
+        margin-bottom: -118px !important;
+        width: 120px !important;
+        height: 100%;
+    }
+    #game .paralaxbg1 {
+        background-size: cover;
+    }
+    #game .paralaxbg2 {
+        background-size: 1613% !important;
+    }
+    #game .cloud {
+        background-size: 1200%;
+    }
+    #game .building {
+        background-size: cover;
+    }
+    #game .distance {
+        transform:translate(-50%, 25%);
+    }
 }

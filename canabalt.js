@@ -25,10 +25,8 @@ Canabalt.BIND_JUMP_KEYS = {'88': true, '67': true, '32': true}; // X, C, spaceba
 
 Canabalt.DISTANCE_TO_METERS_COEFFICIENT = 0.055;
 
-Canabalt.PARALAX_BG_1_TOP_OFFSET = '100px';
 Canabalt.PARALAX_BG_1_SPEED = 0.3;
 
-Canabalt.PARALAX_BG_2_TOP_OFFSET = '100px';
 Canabalt.PARALAX_BG_2_SPEED = 0.2;
 
 Canabalt.CLOUD_OFFSET = '50px';
@@ -37,8 +35,20 @@ Canabalt.CLOUD_SPEED = 0.15;
 Canabalt.PARALAX_FG_SPEED = 3;
 Canabalt.PARALAX_FG_INITIAL_WAIT = 3000;
 
-Canabalt.RUNNER_WIDTH = 24;
-Canabalt.RUNNER_HEIGHT = 38;
+if(window.outerWidth < 575) {
+    Canabalt.PARALAX_BG_1_TOP_OFFSET = '40px';
+    Canabalt.PARALAX_BG_2_TOP_OFFSET = '-100px';
+  
+    Canabalt.RUNNER_WIDTH = 174;
+    Canabalt.RUNNER_HEIGHT = 178;
+}
+else {
+    Canabalt.PARALAX_BG_1_TOP_OFFSET = '100px';
+    Canabalt.PARALAX_BG_2_TOP_OFFSET = '100px';
+
+    Canabalt.RUNNER_WIDTH = 24;
+    Canabalt.RUNNER_HEIGHT = 38;
+}
 
 Canabalt.RUNNER_JUMPING_WIDTH = 28;
 Canabalt.RUNNER_FALLING_ANIMATION_FREQ = 6; // Change falling frame every n cycles
@@ -74,10 +84,14 @@ Canabalt.prototype.initialize = function() {
   this.jumping = false;
   this.ySpeed = 0;
   this.y = 300;
+  if(window.outerWidth < 575) {
+      this.y = 200;
+  }
+  else {
+      this.y = 300;
+  }
 
-
-
-    // Copy some options to object space for quicker access
+  // Copy some options to object space for quicker access
   this.acceleration = this.readOption('acceleration');
   this.jumpImpulse = this.readOption('jumpImpulse');
   this.gravity = this.readOption('gravity');
@@ -88,6 +102,15 @@ Canabalt.prototype.initialize = function() {
   // Create runner DIV
   if (!this.runner) {
     this.runner = this.createDiv('runner');
+      const animationPlayer = bodymovin.loadAnimation({
+          container: this.runner,
+          path: 'img/adidas-runner.json',
+          render: 'svg',
+          loop: true,
+          autoplay: true,
+          name: 'player animation'
+      })
+      animationPlayer.play();
   }
   this.runner.classList.remove('die')
 
@@ -126,7 +149,6 @@ Canabalt.prototype.initialize = function() {
   // Place the first building
   this.addBuilding(new Canabalt.DD(this));
 
-    console.log(this)
 
     // Provide the viewport with an actual height property so that
   // absolute elements within it are positioned relative to its height
@@ -194,7 +216,7 @@ Canabalt.prototype.startInputCapture = function() {
   // for easier cross-browser compatibility
   // No need for anything fancy anyway
   
-  document.onkeydown = function(event) {
+  document.onkeydown = function(event) {  
     if (Canabalt.BIND_JUMP_KEYS[String(event.keyCode)]) {
       me.startJump();
     }
@@ -346,15 +368,9 @@ Canabalt.prototype.cycle = function() {
     this.ySpeed -= this.gravity;
 
     var h = this.currentBuilding ? this.currentBuilding.height : 0;
-      // console.log(this.buildings)
-      // console.log('next building',this.buildings[1])
     if (this.y < h) {
-        // this.y = h;
         if(h - this.y > 10) {
-            console.log('game over');
-            // this.y = 0
-            clearInterval(this.interval);
-            delete this.interval;
+            game.stop();
             this.runner.classList.add('die')
         }
         else {
@@ -363,8 +379,6 @@ Canabalt.prototype.cycle = function() {
             this.airborne = false;
             this.falling = false;
         }
-        console.log('die', this.y,'-' , h, '=', h - this.y)
-
     }
     //   if(this.airborne) {
     //       console.log('jump')
@@ -423,11 +437,16 @@ Canabalt.prototype.cycle = function() {
 
 Canabalt.Building = function(game, options) {
   this.game = game;
-
   this.type = Canabalt.Building.TYPE_NORMAL;
 
-  this.width = 300 + Math.round(Math.random() * 1000);
-  this.height = 200 + Math.round(Math.random() * 100);
+    if(window.outerWidth < 575) {
+      this.width = 500 + Math.round(Math.random() * 1000);
+      this.height = 200 + Math.round(Math.random() * 20);
+    }
+  else {
+      this.width = 300 + Math.round(Math.random() * 1000);
+      this.height = 200 + Math.round(Math.random() * 100);
+  }
   this.gap = Math.round(this.game.speed * 300);
   this.totalWidth = this.width + this.gap;
 
@@ -451,8 +470,14 @@ Canabalt.DD = function(game, options) {
     this.firstbuilding = true;
     this.type = Canabalt.Building.TYPE_NORMAL;
 
-    this.width = this.game.viewportWidth - 100;
-    this.height = 300;
+    if(window.outerWidth < 575) {
+        this.width = this.game.viewportWidth + 200;
+        this.height = 200;
+    }
+    else {
+        this.width = this.game.viewportWidth - 100;
+        this.height = 300;
+    }
     this.gap = Math.round(this.game.speed * 300);
     this.totalWidth = this.width + this.gap;
 
@@ -487,13 +512,10 @@ Canabalt.Building.prototype.move = function(distance) {
       this.game.currentBuilding = null;
       this.game.airborne = true;
       this.isOut = true;
-        console.log('not in building')
     }
   } else if (this.left <= this.game.x) {
     this.game.currentBuilding = this;
     this.isIn = true;
-      console.log('in building')
-
   }
 
   // Check if the end of the building + gap was reached and call
@@ -521,13 +543,10 @@ Canabalt.DD.prototype.move = function(distance) {
       this.game.currentBuilding = null;
       this.game.airborne = true;
       this.isOut = true;
-        console.log('not in building')
     }
   } else if (this.left <= this.game.x) {
     this.game.currentBuilding = this;
     this.isIn = true;
-      console.log('in building')
-
   }
 
   // Check if the end of the building + gap was reached and call
@@ -549,12 +568,26 @@ Canabalt.DD.prototype.move = function(distance) {
 
 Canabalt.Building.prototype.draw = function() {
   if (!this.expired) {
+    if(this.element.offsetWidth < 450) {
+        this.element.style.backgroundImage = 'url(img/smallerGround.svg)';
+    }
+    if(this.element.offsetWidth > 450 && this.element.offsetWidth < 650) {
+        this.element.style.backgroundImage = 'url(img/mediumGround.svg)';
+    }
+    if(this.element.offsetWidth > 650 && this.element.offsetWidth < 990) {
+        this.element.style.backgroundImage = 'url(img/largeGround.svg)';
+    }
+    if(this.element.offsetWidth > 990) {
+        this.element.style.backgroundImage = 'url(img/veryLargeGround.svg)';
+    }
     this.element.style.left = String(this.left) + 'px';
   }
   return this;
 };
+
 Canabalt.DD.prototype.draw = function() {
     if (!this.expired) {
+        this.element.style.backgroundImage = 'url(img/largerGround.svg)';
         this.element.style.left = String(this.left) + 'px';
     }
     return this;
