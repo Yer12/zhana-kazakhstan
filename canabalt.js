@@ -5,12 +5,13 @@ if (!Date.now) {
   };
 }
 
+
 Canabalt = function(container, options) {
   this.options = options || {};
   this.container = container;
   this.viewportWidth = this.container.offsetWidth;
   this.buildings = [];
-
+  this.resultModal = document.getElementById('myModal');
   // Milliseconds between frames
   this.mbf = 1500 / this.readOption('fps');
 
@@ -104,7 +105,7 @@ Canabalt.prototype.initialize = function() {
     this.runner = this.createDiv('runner');
       const animationPlayer = bodymovin.loadAnimation({
           container: this.runner,
-          path: 'img/adidas-runner.json',
+          path: 'img/money-runner.json',
           render: 'svg',
           loop: true,
           autoplay: true,
@@ -206,6 +207,7 @@ Canabalt.prototype.removeFirstBuilding = function() {
   this.container.removeChild(building.element);
 };
 
+
 Canabalt.prototype.startInputCapture = function() {
   var me = this;
 
@@ -215,7 +217,7 @@ Canabalt.prototype.startInputCapture = function() {
   // Use DOM-0-style event listener registration
   // for easier cross-browser compatibility
   // No need for anything fancy anyway
-  
+
   document.onkeydown = function(event) {  
     if (Canabalt.BIND_JUMP_KEYS[String(event.keyCode)]) {
       me.startJump();
@@ -227,6 +229,15 @@ Canabalt.prototype.startInputCapture = function() {
       me.endJump();
     }
   };
+
+  if(window.outerWidth < 575) {
+    document.addEventListener('touchstart', function(e){
+      document.onkeydown({keyCode: 32});
+    })
+    document.addEventListener("touchend", function(e) {
+      document.onkeyup({ keyCode: 32 });
+    });
+  }
 };
 
 Canabalt.prototype.stopInputCapture = function() {
@@ -372,6 +383,9 @@ Canabalt.prototype.cycle = function() {
         if(h - this.y > 10) {
             game.stop();
             this.runner.classList.add('die')
+            setTimeout(()=> {
+              this.resultModal.style.display = "flex";
+            }, 1000 );
         }
         else {
             this.y = h;
@@ -379,6 +393,13 @@ Canabalt.prototype.cycle = function() {
             this.airborne = false;
             this.falling = false;
         }
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      console.log(event.target, this.game.resultModal);
+      if (event.target === this.game.resultModal) {
+          this.game.resultModal.style.display = "none";
+      }
     }
     //   if(this.airborne) {
     //       console.log('jump')

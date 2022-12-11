@@ -14,24 +14,45 @@
 <body>
   <div id="wrapper">
       <div class="header">
-          <a href="#" class="header-item">Скучные правила</a>
-          <a href="index.html" class="header-item">
+          <a href="index.html" id="logo" class="header-item">
               <img src="img/logo.png" alt="" />
           </a>
-          <a href="#" class="header-item"> Выбор персонажа</a>
-          <a href="#" onclick="if (game.paused()) { game.start(); this.innerHTML = 'Pause'; } else { game.stop(); this.innerHTML = 'Continue'; }; return false;">Pause</a>
-          <a href="#" onclick="game.initialize(); game.start(); return false;">Restart</a>
+          <!-- <a href="#" id="pause" onclick="if (game.paused()) { game.start(); this.innerHTML = 'Pause'; } else { game.stop(); this.innerHTML = 'Continue'; }; return false;">Pause</a>
+          <a href="#" id="restart" onclick="game.initialize(); game.start(); return false;">Restart</a> -->
       </div>
     <div id="frame">
-      <div id="game"></div>
-        <div class="game-over">
-          
-        </div>
+      <div id="game">
+        <div id="myModal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <img src="img/close.svg" class="modal-close" />
+            <div class="modal-header">                
+              <a href="index.html">
+                <img src="img/logo.png" alt="">
+              </a>
+            </div>
+            <div class="modal-container">
+              <div class="modal-left">
+                <p class="modal-left-title">Твой результат: </p>
+                <p class="modal-left-score"><span id="score">10000</span> очков</p>
+                <p class="modal-left-text">Если бы ты строил ЛРТ, то его бы
+                  уже закончили</p>
+                <button class="modal-left-btn" onclick="game.initialize(); game.resultModal.style.display = 'none'; game.start(); return false;">Играть еще раз</button>
+              </div>
+              <div class="modal-right">
+                <img src="img/modal-img.png" alt="modal img">
+              </div>
+            </div>
+          </div>
+      </div>
+      </div>
     </div>
+    
   </div>
 
   <script type="text/javascript">
     var game = new Canabalt(document.getElementById('game'), {fps: 100}).start();
   </script>
+  <script src="canabalt.js"></script>
 </body>
 </html>
