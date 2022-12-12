@@ -1,30 +1,46 @@
-body {
+body, p {
     margin: 0;
     padding: 0;
 }
 .main {
     width: calc(100% - 200px);
-    height: calc(100vh - 52px);
+    min-height: calc(100vh - 52px);
+    height: auto;
     background-image: url('img/mainBg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
     padding-left: 100px;
     padding-right: 100px;
     padding-top: 52px;
+    padding-bottom: 30px;
 }
 .main-header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 a.main-header_item {
     text-decoration: none;
     color: white;
 }
+.main-header_item br {
+    display: none;
+}
+.main-header_item img {
+    width: 100%;
+    height: 100%;
+}
+.main-header_item:nth-child(2) {
+    width: 100px;
+}
 
 .main-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 400px;
+    flex-direction: column;
+    width: 800px;
+    margin: 100px auto;
 }
 .main-container a {
     font-family: 'Supermolot', sans-serif;
@@ -40,3 +56,134 @@ a.main-header_item {
     box-shadow: inset -6px -6px 0px #D5B800, inset 6px 6px 0px #FDFF89;
     border-radius: 19px;
 }
+.game-title {
+    font-family: 'Supermolot';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 37.357px;
+    line-height: 129.02%;
+    text-align: center;
+    letter-spacing: 0.255em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin-top: 25px;
+    margin-bottom: 16px;
+}
+.game-subtitle {
+    font-family: 'Supermolot';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 23px;
+    line-height: 129.3%;
+    text-align: center;
+    color: #FFFFFF;
+}
+.game-form {
+    margin-top: 51px;
+    margin-bottom: 41px;
+    display: flex;
+    justify-content: space-between;
+}
+.game-form_name, .game-form_tel {
+    background: #FFFFFF;
+    border-radius: 4px;
+    border: none;
+    width: 347px;
+    height: 62px;
+    font-family: 'Supermolot';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 23.7319px;
+    line-height: 124.1%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #608DFF;
+    outline: none;
+}
+.game-form_name::placeholder, .game-form_tel::placeholder {
+    font-family: 'Supermolot';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 23.7319px;
+    line-height: 124.1%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #608DFF;
+    outline: none;
+}
+.game-form_name {
+    margin-right: 20px;
+}
+
+@media screen and (max-width: 998px) {
+    .main-container {
+        width: 100%;
+    }
+    .game-logo img {
+        width: 100%;
+    }
+    .game-title {
+        font-family: 'Supermolot';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14.5269px;
+        line-height: 129.02%;
+        text-align: center;
+        letter-spacing: 0.255em;
+        text-transform: uppercase;
+        color: #FFFFFF;
+    }
+    .game-subtitle {
+        font-family: 'Supermolot';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 129.3%;
+        text-align: center;
+        color: #FFFFFF;
+    }
+    .game-subtitle br {
+        display: none;
+    }
+    .game-form {
+        flex-direction: column;
+    }
+    .game-form_name {
+        margin-bottom: 30px;
+    }
+}
+@media screen and (max-width: 590px) {
+    .main {
+        padding-top: 25px;
+        padding-bottom: 25px;
+        padding-right: 0px;
+        padding-left: 0px;
+        width: 100%;
+    }
+    .main-container {
+        margin-top: 40px;
+    }
+    .main-header {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    .main-header_item br {
+        display: block;
+    }
+    .main-header_item:nth-child(2) {
+        width: 60px;
+    }
+    .game-form {
+        width: 100%;
+    }
+    .game-form_name, .game-form_tel { 
+        width: calc(100% - 25px);
+    }
+    .main-container {
+        width: calc(100% - 40px);
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+ }

@@ -4,7 +4,10 @@ body {
     font-family: 'Manrope';
     font-style: normal;
 }
-
+p {
+    margin: 0;
+    padding: 0;
+}
 #wrapper {
     width: 100%;
     height: 100vh;
@@ -154,17 +157,22 @@ a {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background: rgba(65, 64, 101, 0.38);
+    background: rgba(0, 0, 0, 0.48);;
     backdrop-filter: blur(16px);
 }
-
+.modal-header {
+    width: 90px;
+}
+.modal-header a > img {
+    width: 100%;
+    height: 100%;
+}
 .modal-content {
     background: #2254CF;
     width: calc(1080px - 140px);
     height: calc(625px - 60px);
     border-radius: 6px;
     position: relative;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -183,7 +191,6 @@ a {
 .modal-container {
     width: 100%;
     display: flex;
-    align-items: center;
     justify-content: space-between;
 }
 .modal-left {
@@ -201,6 +208,8 @@ a {
 .modal-left-score {
     font-family: 'Supermolot';
     font-style: normal;
+    margin-bottom: 15px;
+    margin-top: 15px;
     font-weight: 900;
     font-size: 40.2747px;
     line-height: 100.3%;
@@ -213,6 +222,7 @@ a {
     font-size: 45px;
     line-height: 100.3%;
     color: #FFFFFF;
+    margin-bottom: 60px;
 }
 .modal-left-btn {
     background: #FFDC00;
@@ -238,25 +248,36 @@ a {
 @media (max-width: 998px) {
     .modal-content {
         width: 100%;
-        padding: 0;
-        height: calc(100% - 20px);
+        min-height: 100vh;
+        height: auto;
         padding: 10px 30px;
-        justify-content: center;
+        justify-content: initial;
+    }
+    .modal-header {
+        margin-top: 80px;
     }
     .modal-container {
         flex-direction: column;
     }
     .modal-left {
         width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column; 
     }
     .modal-right {
-        width: 100%;
-        margin-top: 30px;
+        width: 200px;
+        margin-top: 50px;
     }
     .modal-right img {
         width: 100%;
         height: 100%;
     }
+    .modal-left-text {
+        text-align: center;
+        font-size: 22px;
+    }
+    
 }
 @media (max-width: 575px) {
     .header {
@@ -299,5 +320,14 @@ a {
     #game .distance {
         transform:translate(-50%, 25%);
     }
-
+    .modal-left {
+        margin-top: 30px;
+    }
+    .modal-left-score {
+        margin-top: 8px;
+        margin-bottom: 18px;
+    }
+    .modal-container {
+        align-items: center;
+    }
 }
