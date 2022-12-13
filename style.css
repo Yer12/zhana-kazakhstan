@@ -210,8 +210,8 @@ body, p {
     .game-form {
         width: 100%;
     }
-    .game-form_name, .game-form_tel { 
-        width: 100%;
+    .game-form input { 
+        width: calc(100% - 20px);
     }
     .main-container {
         width: calc(100% - 40px);
