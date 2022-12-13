@@ -1,3 +1,22 @@
+@font-face {
+    font-family: 'Supermolot';
+    src: url(fonts/TTSupermolotNeue-Regular.ttf);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Supermolot';
+    src: url(fonts/TTSupermolotNeue-Bold.ttf);
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Supermolot';
+    src: url(fonts/TTSupermolotNeue-Black.ttf);
+    font-weight: 900;
+}
+
+
 body, p {
     margin: 0;
     padding: 0;
@@ -12,14 +31,20 @@ body, p {
     padding-left: 100px;
     padding-right: 100px;
     padding-top: 52px;
-    padding-bottom: 30px;
+    padding-bottom: px;
 }
 .main-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-a.main-header_item {
+.main-header_item {
+    cursor: pointer;
+    font-family: 'Supermolot';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 119.6%;
     text-decoration: none;
     color: white;
 }
@@ -40,7 +65,7 @@ a.main-header_item {
     align-items: center;
     flex-direction: column;
     width: 800px;
-    margin: 100px auto;
+    margin: 50px auto;
 }
 .main-container a {
     font-family: 'Supermolot', sans-serif;
@@ -117,6 +142,8 @@ a.main-header_item {
     margin-right: 20px;
 }
 
+
+
 @media screen and (max-width: 998px) {
     .main-container {
         width: 100%;
@@ -161,6 +188,8 @@ a.main-header_item {
         padding-right: 0px;
         padding-left: 0px;
         width: 100%;
+        background-image: url('img/mobileMainBg.png');
+        background-position: center center;
     }
     .main-container {
         margin-top: 40px;
@@ -168,6 +197,9 @@ a.main-header_item {
     .main-header {
         padding-left: 30px;
         padding-right: 30px;
+    }
+    .main-header_item {
+        font-size: 16px;
     }
     .main-header_item br {
         display: block;
@@ -179,11 +211,20 @@ a.main-header_item {
         width: 100%;
     }
     .game-form_name, .game-form_tel { 
-        width: calc(100% - 25px);
+        width: 100%;
     }
     .main-container {
         width: calc(100% - 40px);
         padding-right: 10px;
         padding-left: 10px;
+    }
+
+    .person-modal-content {
+        width: 100%;
+        height: 100%;
+        padding: 0px;
+    }
+    .person-modal-content_header {
+        margin-top: 50px;
     }
  }

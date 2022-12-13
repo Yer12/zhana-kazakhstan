@@ -1,0 +1,158 @@
+@font-face {
+    font-family: 'Supermolot';
+    src: url(fonts/TTSupermolotNeue-Regular.ttf);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Supermolot';
+    src: url(fonts/TTSupermolotNeue-Bold.ttf);
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Supermolot';
+    src: url(fonts/TTSupermolotNeue-Black.ttf);
+    font-weight: 900;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.rules {
+    width: calc(100% - 500px);
+    min-height: 100vh;
+    background-image: url('img/ruleBg.png');
+    background-size: cover;
+    background-position-y: bottom;
+    background-repeat: no-repeat;
+    padding-left: 250px;
+    padding-right: 250px;
+    padding-bottom: 100px;
+}
+.rules-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 50px;
+    
+}
+.rules-header_item:first-child {
+    width: 60px;
+}
+.rules-header_item:first-child a img {
+    width: 100%;
+    height: 100%;
+}
+.rules-container {
+    margin-top: 100px;
+    background-color: rgba(0, 0, 0, .1);
+    border-radius: 12px;
+    width: calc(100% - 174px);
+    text-align: center;
+    padding: 47px 87px;
+}
+.rules-container_title {
+    font-family: 'Supermolot';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 44px;
+    text-align: center;
+
+    color: #FFFFFF;
+
+}
+.rules-container_subtitle {
+    font-family: 'Supermolot';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 31px;
+    line-height: 129.3%;
+    /* or 40px */
+    
+    text-align: center;
+    
+    color: #FFDC00;
+}
+.rules-container_btn {
+    width: 100%;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+.rules-container_btn a {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FFDC00;
+    box-shadow: inset -6px -6px 0px #D5B800, inset 6px 6px 0px #FDFF89;
+    border-radius: 19px;
+    width: 231.68px;
+    height: 61.74px;
+    font-family: 'Supermolot';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 35px;
+    text-align: center;
+    color: #3770F6;
+    border: none;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1290px) {
+    .rules {
+        padding-left: 100px;
+        padding-right: 100px;
+        width: calc(100% - 200px);
+        background-position-y: auto;
+    }
+    
+}
+
+@media screen and (max-width: 1190px) {
+
+    .rules-container_title {
+        font-size: 24px;
+    }
+    .rules-container_subtitle {
+        font-size: 20px;
+    }    
+}
+
+@media screen and (max-width: 500px) {
+    .rules {
+        padding-left: 16px;
+        padding-right: 16px;
+        width: calc(100% - 32px);
+        background-image: url('img/mobileRulesBg.png');
+    }
+    .rules-header {
+        padding-top: 25px;
+    }
+    .rules-container {
+        margin-top: 30px;
+        padding: 10px 50px;
+        width: calc(100% - 100px);
+    }
+    .rules-container_title {
+        font-size: 14px;
+        line-height: 17px;
+    }
+    .rules-container_subtitle {
+        font-size: 12px;
+        line-height: 129.3%;
+    }   
+    .rules-container_btn a {
+        width: 136.43px;
+        height: 38.42px;
+        font-size: 16px;
+        border-radius: 6px;
+        line-height: 20px;
+    } 
+}

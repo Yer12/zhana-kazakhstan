@@ -9,14 +9,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.6.4/lottie_svg.min.js"></script>
-
+  <!-- Link Swiper's CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+  />
 </head>
 <body>
   <div id="wrapper">
       <div class="header">
+        <div class="main-header_item">
+            
+        </div>
           <a href="index.html" id="logo" class="header-item">
               <img src="img/logo.png" alt="" />
           </a>
+          <div id="selectPerson" class="main-header_item">
+              Выбор <br> персонажа
+          </div>
           <!-- <a href="#" id="pause" onclick="if (game.paused()) { game.start(); this.innerHTML = 'Pause'; } else { game.stop(); this.innerHTML = 'Continue'; }; return false;">Pause</a>
           <a href="#" id="restart" onclick="game.initialize(); game.start(); return false;">Restart</a> -->
       </div>
@@ -43,15 +53,106 @@
               </div>
             </div>
           </div>
-      </div>
+        </div>
+        <div id="personModal" class="person-modal">
+          <div class="person-modal-content">
+            <img src="img/close.svg" id="modal-close" class="modal-close" />
+            <div class="person-modal-content_header">
+              <img src="img/logo.svg" alt="">
+            </div>
+            <p class="person-modal-content_title modal-left-title">Ваш персонаж:</p>
+            <div class="swiper mySwiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <p class="person-modal-content_person">АЯЗ АТА</p>
+                  <div>
+                    <div class="person-modal-content_img">
+                      <img src="img/santa.svg" alt="">
+                    </div>
+                  </div>
+
+                  <div onclick="selectCharacter(0)" class="person-modal-conent_btn">
+                      <p class="person-modal-conent_btn-text">Выбрать</p>
+                      <img src="img/lock.svg" alt="">
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                  <p class="person-modal-content_person">Obojayu</p>
+                  <div>
+                    <div class="person-modal-content_img">
+                      <img src="img/swim.svg" alt="">
+                    </div>
+                  </div>
+
+                  <div onclick="selectCharacter(1)" class="person-modal-conent_btn">
+                      <p class="person-modal-conent_btn-text">Выбрать</p>
+                      <img src="img/lock.svg" alt="">
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                  <p class="person-modal-content_person">Krash</p>
+                  <div>
+                    <div class="person-modal-content_img">
+                      <img src="img/krash.svg" alt="">
+                    </div>
+                  </div>
+
+                  <div onclick="selectCharacter(2)" class="person-modal-conent_btn">
+                      <p class="person-modal-conent_btn-text">Выбрать</p>
+                      <img src="img/lock.svg" alt="">
+                    </div>
+                </div>
+              </div>
+              <div class="swiper-button-next">
+                <img src="img/next.svg" alt="">
+              </div>
+              <div class="swiper-button-prev">
+                <img src="img/prev.svg" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     
   </div>
+  <script>
+    const select = document.getElementById('selectPerson');
+    const personModal = document.getElementById('personModal');
+    const modalClose = document.getElementById('modal-close');
+    select.addEventListener('click', () => {
+        personModal.style.display = 'flex';
+        game.stop();
+    })
+    modalClose.addEventListener('click', () => {
+        personModal.style.display = 'none';
+        game.start();
+    });
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target === personModal) {
+            personModal.style.display = "none";
+            game.start();
+        }
+    }
 
+  </script>
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Initialize Swiper -->
+  <script>
+      var swiper = new Swiper(".mySwiper", {
+      navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+      },
+      });
+  </script>
   <script type="text/javascript">
     var game = new Canabalt(document.getElementById('game'), {fps: 100}).start();
   </script>
   <script src="canabalt.js"></script>
+  
 </body>
 </html>

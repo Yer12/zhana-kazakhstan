@@ -5,18 +5,19 @@ if (!Date.now) {
   };
 }
 
-
 Canabalt = function(container, options) {
   this.options = options || {};
   this.container = container;
   this.viewportWidth = this.container.offsetWidth;
   this.buildings = [];
   this.resultModal = document.getElementById('myModal');
+  this.personModal = document.getElementById('personModal');
   // Milliseconds between frames
   this.mbf = 1500 / this.readOption('fps');
-
+  
   this.initialize();
 };
+
 
 // Cap game at 90 cycles per second
 Canabalt.CYCLES_PER_SECOND = 90;
@@ -32,12 +33,12 @@ Canabalt.PARALAX_BG_2_SPEED = 0.2;
 
 Canabalt.CLOUD_OFFSET = '50px';
 Canabalt.CLOUD_SPEED = 0.15;
-
+Canabalt.CHARACTER = 0;
 Canabalt.PARALAX_FG_SPEED = 3;
 Canabalt.PARALAX_FG_INITIAL_WAIT = 3000;
 
 if(window.outerWidth < 575) {
-    Canabalt.PARALAX_BG_1_TOP_OFFSET = '40px';
+    Canabalt.PARALAX_BG_1_TOP_OFFSET = '130px';
     Canabalt.PARALAX_BG_2_TOP_OFFSET = '-100px';
   
     Canabalt.RUNNER_WIDTH = 174;
@@ -69,6 +70,13 @@ Canabalt.defaultOptions = {
 Canabalt.prototype.readOption = function(option) {
   return this.options[option] || Canabalt.defaultOptions[option];
 };
+
+const selectCharacter = (char) => {
+  this.Canabalt.CHARACTER = char;
+  document.getElementById('personModal').style.display = 'none';
+  game.start();
+  this.game.initialize();
+}
 
 Canabalt.prototype.initialize = function() {
   // Reset cycle counter
@@ -103,16 +111,31 @@ Canabalt.prototype.initialize = function() {
   // Create runner DIV
   if (!this.runner) {
     this.runner = this.createDiv('runner');
-      const animationPlayer = bodymovin.loadAnimation({
-          container: this.runner,
-          path: 'img/money-runner.json',
-          render: 'svg',
-          loop: true,
-          autoplay: true,
-          name: 'player animation'
-      })
-      animationPlayer.play();
+    const animationPlayer = bodymovin.loadAnimation({
+      container: this.runner,
+      path: 'img/char'+window.Canabalt.CHARACTER+'.json',
+      render: 'svg',
+      loop: true,
+      autoplay: true,
+      name: 'player animation'
+    })
+    animationPlayer.play();
   }
+  else {
+    this.runner.remove();
+    this.runner = this.createDiv('runner');
+    const animationPlayer = bodymovin.loadAnimation({
+      container: this.runner,
+      path: 'img/char'+window.Canabalt.CHARACTER+'.json',
+      render: 'svg',
+      loop: true,
+      autoplay: true,
+      name: 'player animation'
+    })
+    animationPlayer.play();
+    
+  }
+
   this.runner.classList.remove('die')
 
   this.runnerFrame = 0;
@@ -196,7 +219,6 @@ Canabalt.prototype.stop = function() {
   }
   return this;
 };
-
 Canabalt.prototype.addBuilding = function(building) {
   this.buildings.unshift(building);
   this.container.appendChild(building.element);
@@ -394,9 +416,21 @@ Canabalt.prototype.cycle = function() {
             this.falling = false;
         }
     }
+
+    if(this.y === 0) {
+      game.stop();
+      this.runner.classList.add('die')
+      setTimeout(()=> {
+        this.resultModal.style.display = "flex";
+      }, 1000 );
+    }
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-      console.log(event.target, this.game.resultModal);
+      if (event.target === this.game.resultModal) {
+          this.game.resultModal.style.display = "none";
+      }
+    }
+    window.onclick = function(event) {
       if (event.target === this.game.resultModal) {
           this.game.resultModal.style.display = "none";
       }
