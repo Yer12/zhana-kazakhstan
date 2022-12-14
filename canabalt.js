@@ -38,15 +38,15 @@ Canabalt.PARALAX_FG_SPEED = 3;
 Canabalt.PARALAX_FG_INITIAL_WAIT = 3000;
 
 if(window.outerWidth < 575) {
-    Canabalt.PARALAX_BG_1_TOP_OFFSET = '130px';
-    Canabalt.PARALAX_BG_2_TOP_OFFSET = '-100px';
+    Canabalt.PARALAX_BG_1_TOP_OFFSET = '50px';
+    Canabalt.PARALAX_BG_2_TOP_OFFSET = '-35px';
   
     Canabalt.RUNNER_WIDTH = 174;
     Canabalt.RUNNER_HEIGHT = 178;
 }
 else {
-    Canabalt.PARALAX_BG_1_TOP_OFFSET = '100px';
-    Canabalt.PARALAX_BG_2_TOP_OFFSET = '100px';
+    Canabalt.PARALAX_BG_1_TOP_OFFSET = '80px';
+    Canabalt.PARALAX_BG_2_TOP_OFFSET = '-40px';
 
     Canabalt.RUNNER_WIDTH = 24;
     Canabalt.RUNNER_HEIGHT = 38;
@@ -495,8 +495,8 @@ Canabalt.Building = function(game, options) {
   this.type = Canabalt.Building.TYPE_NORMAL;
 
     if(window.outerWidth < 575) {
-      this.width = 500 + Math.round(Math.random() * 1000);
-      this.height = 200 + Math.round(Math.random() * 20);
+      this.width = 300 + Math.round(Math.random() * 1000);
+      this.height = 200 + Math.round(Math.random() * 100);
     }
   else {
       this.width = 300 + Math.round(Math.random() * 1000);
@@ -615,34 +615,149 @@ Canabalt.DD.prototype.move = function(distance) {
   // it has expired and has to be removed
   if (!this.expired && (this.totalWidth + this.left <= 0)) {
     this.game.removeFirstBuilding();
+    console.log('expired changed');
     this.expired = true;
   }
 
   return this;
 };
 
+const b300 = [
+  'b300_1.svg',
+  'b300_2.svg',
+  'b300_3.svg',
+  'b300_4.svg',
+]
+const b600 = [
+  'b600_1.svg',
+  'b600_2.svg',
+  'b600_3.svg',
+  'b600_4.svg',
+  'b600_5.svg',
+]
+const b866 = [
+  'b866_1.svg',
+  'b866_2.svg',
+  'b866_3.svg',
+  'b866_4.svg',
+  'b866_5.svg',
+] 
+const b1000 = [
+  'b1000_1.svg',
+  'b1000_2.svg',
+  'b1000_3.svg',
+]
+const b1200 = [
+  'b1200_1.svg',
+  'b1200_2.svg'
+]
+
+function get_random (list) {
+  let randomNum = Math.floor(Math.random() * list.length);
+
+  return list[randomNum];
+}
+
+
 Canabalt.Building.prototype.draw = function() {
   if (!this.expired) {
-    if(this.element.offsetWidth < 450) {
-        this.element.style.backgroundImage = 'url(img/smallerGround.svg)';
+    // 300
+    if(this.element.offsetWidth < 270) {
+      this.element.style.backgroundImage = 'url(img/buildings/b300_1.svg)';
+      this.element.style.backgroundSize = 'cover';
     }
-    if(this.element.offsetWidth > 450 && this.element.offsetWidth < 650) {
-        this.element.style.backgroundImage = 'url(img/mediumGround.svg)';
+    else if(this.element.offsetWidth > 270 && this.element.offsetWidth < 380) {
+      this.element.style.backgroundImage = 'url(img/buildings/b300_2.svg)';
+      this.element.style.backgroundSize = 'cover';
     }
-    if(this.element.offsetWidth > 650 && this.element.offsetWidth < 990) {
-        this.element.style.backgroundImage = 'url(img/largeGround.svg)';
+    else if(this.element.offsetWidth > 380 && this.element.offsetWidth < 490) {
+      this.element.style.backgroundImage = 'url(img/buildings/b300_3.svg)';
+      this.element.style.backgroundSize = 'cover';
     }
-    if(this.element.offsetWidth > 990) {
-        this.element.style.backgroundImage = 'url(img/veryLargeGround.svg)';
+    else if(this.element.offsetWidth > 490 && this.element.offsetWidth < 600) {
+      this.element.style.backgroundImage = 'url(img/buildings/b300_4.svg)';
+      this.element.style.backgroundSize = 'cover';
+    }
+    
+    // 500
+    else if(this.element.offsetWidth > 600 && this.element.offsetWidth < 701) {
+      this.element.style.backgroundImage = 'url(img/buildings/b500_1.svg)';
+    }
+
+    //600 - 700
+    else if(this.element.offsetWidth > 701 && this.element.offsetWidth < 730) {
+      this.element.style.backgroundImage = 'url(img/buildings/b600_1.svg)';
+    }
+    else if(this.element.offsetWidth > 730 && this.element.offsetWidth < 750) {
+      this.element.style.backgroundImage = 'url(img/buildings/b600_2.svg)';
+    }
+    else if(this.element.offsetWidth > 750 && this.element.offsetWidth < 770) {
+      this.element.style.backgroundImage = 'url(img/buildings/b600_3.svg)';
+    }
+    else if(this.element.offsetWidth > 770 && this.element.offsetWidth < 790) {
+      this.element.style.backgroundImage = 'url(img/buildings/b600_4.svg)';
+    }
+    else if(this.element.offsetWidth > 790 && this.element.offsetWidth < 820) {
+      this.element.style.backgroundImage = 'url(img/buildings/b600_5.svg)';
+    }
+
+    //700 - 900
+    else if(this.element.offsetWidth > 820 && this.element.offsetWidth < 850) {
+      this.element.style.backgroundImage = 'url(img/buildings/b866_1.svg)';
+    }
+    else if(this.element.offsetWidth > 850 && this.element.offsetWidth < 870) {
+      this.element.style.backgroundImage = 'url(img/buildings/b866_2.svg)';
+      this.element.style.backgroundSize = 'cover';
+    }
+    else if(this.element.offsetWidth > 870 && this.element.offsetWidth < 890) {
+      this.element.style.backgroundImage = 'url(img/buildings/b866_3.svg)';
+      this.element.style.backgroundSize = 'cover';
+    }
+    else if(this.element.offsetWidth > 890 && this.element.offsetWidth < 900) {
+      this.element.style.backgroundImage = 'url(img/buildings/b866_4.svg)';
+      this.element.style.backgroundSize = 'cover';
+    }
+    else if(this.element.offsetWidth > 900 && this.element.offsetWidth < 950) {
+      this.element.style.backgroundImage = 'url(img/buildings/b866_5.svg)';
+      this.element.style.backgroundSize = 'cover';
+    }
+
+    // 900 - 1100
+    else if(this.element.offsetWidth > 950 && this.element.offsetWidth < 990) {
+      this.element.style.backgroundImage = 'url(img/buildings/b1000_1.svg)';
+    }
+    else if(this.element.offsetWidth > 990 && this.element.offsetWidth < 1050) {
+      this.element.style.backgroundImage = 'url(img/buildings/b1000_2.svg)';
+    }
+    else if(this.element.offsetWidth > 1050 && this.element.offsetWidth < 1100) {
+      this.element.style.backgroundImage = 'url(img/buildings/b1000_3.svg)';
+    }
+
+    // 1100 - 1300
+    else if(this.element.offsetWidth > 1100 && this.element.offsetWidth < 1200) {
+      this.element.style.backgroundImage = 'url(img/buildings/b1200_1.svg)';
+    }
+    else if(this.element.offsetWidth > 1200 && this.element.offsetWidth < 1300) {
+      this.element.style.backgroundImage = 'url(img/buildings/b1200_2.svg)';
+    }
+
+    // else
+    else {
+      this.element.style.backgroundImage = 'url(img/buildings/building.svg)';
     }
     this.element.style.left = String(this.left) + 'px';
+  }
+  else {
+    console.log('new building');
   }
   return this;
 };
 
 Canabalt.DD.prototype.draw = function() {
     if (!this.expired) {
-        this.element.style.backgroundImage = 'url(img/largerGround.svg)';
+        this.element.style.backgroundImage = 'url(img/buildings/b1200_2.svg)';
+        this.element.style.backgroundSize = 'cover';
+
         this.element.style.left = String(this.left) + 'px';
     }
     return this;

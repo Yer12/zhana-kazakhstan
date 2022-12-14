@@ -47,12 +47,15 @@ a {
     max-height: -webkit-fill-available;
 }
 .header {
+    position: absolute;
+    top: 0px;
+    z-index: 99;
     display: flex;
     align-items: center;
     justify-content: space-around;
     height: 100px;
     width: 100%;
-    background: #317EF2;
+    background: transparent;
 }
 .header-item {
     color: #fff;
@@ -78,7 +81,7 @@ a {
     display: none;
 }
 #frame {
-    height: calc(100% - 100px);
+    height: 100vh;
     position: relative;
     overflow: hidden;
 }
@@ -117,9 +120,8 @@ a {
 #game .building {
     position: absolute;
     bottom: 0;
-    /*background: #B0B0BF url('windows.png');*/
-    background: url('img/ground.png') no-repeat;
     background-size: cover;
+    background-repeat: no-repeat;
     z-index: 3;
 }
 
@@ -133,17 +135,19 @@ a {
 }
 
 #game .paralaxbg1 {
-    background-image: url('img/city.png');
+    background-image: url('img/city.svg');
     z-index: 3;
+    background-size: cover;
 }
 
 #game .paralaxbg2 {
-    background-image: url('img/mountains.png');
+    background-image: url('img/mountains.svg');
     z-index: 2;
+    background-size: cover;
 }
 #game .cloud {
     background-size: 200%;
-    background-image: url('img/cloud.png');
+    background-image: url('img/cloud.svg');
     z-index: 1;
 }
 
@@ -167,6 +171,7 @@ a {
 #game .distance {
     position: absolute;
     left:50%;
+    top: 80px;
     transform:translate(-50%, 25%);
     font-family: sans-serif;
     font-weight: bolder;
@@ -296,7 +301,14 @@ a {
 .modal-right {
     width: 390px; 
 }
-
+.modal-text {
+    font-weight: 700;
+    font-size: 15.6466px;
+    line-height: 143.8%;
+    text-align: center;
+    color: #FFDC00;
+    margin-top: 60px;
+}
 
 /* PERSON MODAL */
 .person-modal {
@@ -438,7 +450,8 @@ a {
         justify-content: initial;
     }
     .modal-header {
-        margin-top: 80px;
+        margin-top: 25px;
+        width: 60px;
     }
     .modal-container {
         flex-direction: column-reverse;
@@ -482,10 +495,13 @@ a {
         font-size: 16px;
     }
     #frame {
-        height: calc(100vh - 60px) !important;
+        height: 100vh;
+    }
+    #game .distance {
+        top: 50px;
     }
     #game {
-        height: calc(100vh - 0px) !important;
+        height: 100vh;
     }
     #game .runner {
         /* display: flex;
@@ -504,7 +520,7 @@ a {
         background-size: cover;
     }
     #game .paralaxbg2 {
-        background-size: 1613% !important;
+        background-size: 990% !important;
     }
     #game .cloud {
         background-size: 1200%;
@@ -524,6 +540,11 @@ a {
     }
     .modal-container {
         align-items: center;
+    }
+    .modal-text {
+        font-size: 14px;
+        line-height: 143.8%;
+        margin-top: 30px;
     }
     .person-modal-content {
         width: 100%;
