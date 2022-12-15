@@ -16,7 +16,9 @@
     font-weight: 900;
 }
 
-
+html {
+    height: 100vh;
+}
 body, p {
     margin: 0;
     padding: 0;
@@ -66,8 +68,11 @@ body, p {
     flex-direction: column;
     width: 800px;
     margin: 50px auto;
+    padding-bottom: 50px;
 }
-.main-container a {
+.main-container button {
+    border: none;
+    cursor: pointer;
     font-family: 'Supermolot', sans-serif;
     font-style: normal;
     font-weight: 700;
@@ -140,6 +145,30 @@ body, p {
 }
 .game-form_name {
     margin-right: 20px;
+}
+.game-lang {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+}
+.game-lang p {
+    font-family: 'Supermolot';
+    font-weight: 700;
+    font-size: 22.3654px;
+    line-height: 119.6%;
+    color: #FFFFFF;
+}
+.game-lang p:nth-child(2) {
+    font-size: 12px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.game-lang_item {
+    cursor: pointer;
+}
+.game-lang .game-lang_item.active {
+    color: #FFDC00;
+    text-decoration: underline;
 }
 
 

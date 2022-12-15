@@ -92,7 +92,9 @@ body {
     background: #FFDC00;
     box-shadow: inset -6px -6px 0px #D5B800, inset 6px 6px 0px #FDFF89;
     border-radius: 19px;
-    width: 231.68px;
+    width: auto;
+    padding-left: 20px;
+    padding-right: 20px;
     height: 61.74px;
     font-family: 'Supermolot';
     font-style: normal;

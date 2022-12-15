@@ -31,8 +31,8 @@
             </div>
         </div>
         <div class="rules-container">
-            <p class="rules-container_title">Казахстан, 2022 год</p>
-            <p class="rules-container_subtitle">
+            <p class="rules-container_title" id="title1">Казахстан, 2022 год</p>
+            <p class="rules-container_subtitle" id="subtitle1">
                 Много всего произошло за этот год. С самого начала года <br>
                  народ потрясли январские события. <br>
                 Цены сошли с ума. <br>
@@ -43,8 +43,8 @@
             </p>
             <br>
 
-            <p class="rules-container_title">Но у него не было денег на абонемент</p>
-            <p class="rules-container_subtitle">
+            <p class="rules-container_title" id="title2">Но у него не было денег на абонемент</p>
+            <p class="rules-container_subtitle" id="subtitle2">
                 Алихан приехал в Алматы с Шымкента и недавно <br>
                 поступил в универ. Было непросто найти квартиру, а в <br>
                 сентябре арендодатель повысил цену. Какой тут спорт, <br> 
@@ -52,8 +52,8 @@
                 турники во дворе и бег. 
             </p>
             <br>
-            <p class="rules-container_title">Близился Новый Год</p>
-            <p class="rules-container_subtitle">
+            <p class="rules-container_title" id="title3">Близился Новый Год</p>
+            <p class="rules-container_subtitle" id="subtitle3">
                 О ситуации Алихана узнал Дед Уанфит, который <br>
                 собирался подарить абонементы 1Fit самым добрым и <br> 
                 трудолюбивым людям в Алматы. Алихан попал в этот <br> 
@@ -67,10 +67,69 @@
             <br>
         </div>
         <div class="rules-container_btn">
-            <a href="game.html">
+            <a href="game.html" id="go">
                 Погнали
             </a>
         </div>
     </div>
+
+    <script>
+        const data = {
+            "ru": {
+                "title1": "Казахстан, 2022 год",
+                "subtitle1": `Много всего произошло за этот год. С самого начала года <br>
+                 народ потрясли январские события. <br>
+                Цены сошли с ума. <br>
+                С России приехало много людей, убегая от мобилизации. <br> 
+                <br>
+                В этом хаусе простой парниша по имени Алихан просто <br>
+                 хотел наладить здоровый образ жизни `,
+                "title2": "Но у него не было денег на абонемент",
+                "subtitle2": `Алихан приехал в Алматы с Шымкента и недавно <br>
+                поступил в универ. Было непросто найти квартиру, а в <br>
+                сентябре арендодатель повысил цену. Какой тут спорт, <br> 
+                если нужно думать о том, что поесть завтра. Только <br> 
+                турники во дворе и бег. `,
+                "title3": "Близился Новый Год",
+                "subtitle3": `О ситуации Алихана узнал Дед Уанфит, который <br>
+                собирался подарить абонементы 1Fit самым добрым и <br> 
+                трудолюбивым людям в Алматы. Алихан попал в этот <br> 
+                список. <br>
+                <br> 
+
+                Дед Уанфит направился к дому Алихана, чтобы подарить <br> 
+                ему надежду на Новый Казахстан  <br>
+                и нового себя. `,
+                "btn": "Погнали"
+            },
+            "kz": {
+                "title1": "Қазақстан, 2022 жыл",
+                "subtitle1": "Сабтайтл 1",
+                "title2": "Оның абонемент сатып алуға ақшасы болмады",
+                "subtitle2": "Сабтайтл 2",
+                "title3": "Жаңа жыл жақындады",
+                "subtitle3": "Сабтайтл 3",
+                "btn": "Кеттік бәрін таста"
+            }
+        }
+        const lang = localStorage.getItem('lang');
+        const title1 = document.querySelector('#title1');
+        const title2 = document.querySelector('#title2');
+        const title3 = document.querySelector('#title3');
+        const subtitle1 = document.querySelector('#subtitle1');
+        const subtitle2 = document.querySelector('#subtitle2');
+        const subtitle3 = document.querySelector('#subtitle3');
+        const btn = document.querySelector('#go');
+
+        title1.textContent = data[lang].title1;
+        title2.textContent = data[lang].title2;
+        title3.textContent = data[lang].title3;
+        subtitle1.innerHTML = data[lang].subtitle1;
+        subtitle2.innerHTML = data[lang].subtitle2;
+        subtitle3.innerHTML = data[lang].subtitle3;
+        btn.textContent = data[lang].btn;
+
+
+    </script>
 </body>
 </html>

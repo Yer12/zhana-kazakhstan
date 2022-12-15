@@ -12,6 +12,7 @@ Canabalt = function(container, options) {
   this.buildings = [];
   this.resultModal = document.getElementById('myModal');
   this.personModal = document.getElementById('personModal');
+  this.score = document.getElementById('score');
   // Milliseconds between frames
   this.mbf = 1500 / this.readOption('fps');
   
@@ -404,7 +405,31 @@ Canabalt.prototype.cycle = function() {
     if (this.y < h) {
         if(h - this.y > 10) {
             game.stop();
-            this.runner.classList.add('die')
+            this.runner.classList.add('die');
+            this.score.innerHTML = this.distanceCounter.innerHTML.slice(0, -1);
+            console.log(this.score);
+            localStorage.setItem('lrt_game_score', this.score.innerHTML)
+            let payload =
+                {
+                  phone: localStorage.getItem('lrt_game_phone'),
+                  lrt_game_nickname: localStorage.getItem('lrt_game_nickname'),
+                  lrt_game_score: parseInt(this.score.innerHTML)
+                }
+
+            fetch('https://api.dev.1fit.app/api/lead/lrt_game/', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+              },
+              body: JSON.stringify(payload)
+            })
+                .then((resp) => {
+                  console.log(resp);
+                })
+                .catch((error) => {
+                });
+
+
             setTimeout(()=> {
               this.resultModal.style.display = "flex";
             }, 1000 );
@@ -419,7 +444,8 @@ Canabalt.prototype.cycle = function() {
 
     if(this.y === 0) {
       game.stop();
-      this.runner.classList.add('die')
+      this.runner.classList.add('die');
+      console.log(this.score);
       setTimeout(()=> {
         this.resultModal.style.display = "flex";
       }, 1000 );
@@ -431,26 +457,11 @@ Canabalt.prototype.cycle = function() {
       }
     }
     window.onclick = function(event) {
-      if (event.target === this.game.resultModal) {
-          this.game.resultModal.style.display = "none";
+      if (event.target === this.game.personModal) {
+          this.game.personModal.style.display = "none";
+          game.start();
       }
     }
-    //   if(this.airborne) {
-    //       console.log('jump')
-    //       if(this.y < h) {
-    //           this.y = 0;
-    //           console.log(h, this.y)
-    //           console.log('die')
-    //       }
-    //       else {
-    //           console.log('running')
-    //       }
-    //   }
-    //   else {
-    //       if(this.y < h) {
-    //           console.log('die 2')
-    //       }
-    //   }
   } else {
 
     this.runnerRunAnimationDistance += distance;
@@ -615,42 +626,12 @@ Canabalt.DD.prototype.move = function(distance) {
   // it has expired and has to be removed
   if (!this.expired && (this.totalWidth + this.left <= 0)) {
     this.game.removeFirstBuilding();
-    console.log('expired changed');
     this.expired = true;
   }
 
   return this;
 };
 
-const b300 = [
-  'b300_1.svg',
-  'b300_2.svg',
-  'b300_3.svg',
-  'b300_4.svg',
-]
-const b600 = [
-  'b600_1.svg',
-  'b600_2.svg',
-  'b600_3.svg',
-  'b600_4.svg',
-  'b600_5.svg',
-]
-const b866 = [
-  'b866_1.svg',
-  'b866_2.svg',
-  'b866_3.svg',
-  'b866_4.svg',
-  'b866_5.svg',
-] 
-const b1000 = [
-  'b1000_1.svg',
-  'b1000_2.svg',
-  'b1000_3.svg',
-]
-const b1200 = [
-  'b1200_1.svg',
-  'b1200_2.svg'
-]
 
 function get_random (list) {
   let randomNum = Math.floor(Math.random() * list.length);

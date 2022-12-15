@@ -27,8 +27,8 @@
           <div id="selectPerson" class="main-header_item">
               Выбор <br> персонажа
           </div>
-          <a href="#" id="pause" onclick="if (game.paused()) { game.start(); this.innerHTML = 'Pause'; } else { game.stop(); this.innerHTML = 'Continue'; }; return false;">Pause</a>
-          <a href="#" id="restart" onclick="game.initialize(); game.start(); return false;">Restart</a>
+          <!-- <a href="#" id="pause" onclick="if (game.paused()) { game.start(); this.innerHTML = 'Pause'; } else { game.stop(); this.innerHTML = 'Continue'; }; return false;">Pause</a>
+          <a href="#" id="restart" onclick="game.initialize(); game.start(); return false;">Restart</a> -->
       </div>
     <div id="frame">
       <div id="game">
@@ -42,17 +42,17 @@
             </div>
             <div class="modal-container">
               <div class="modal-left">
-                <p class="modal-left-title">Твой результат: </p>
-                <p class="modal-left-score"><span id="score">10000</span> очков</p>
-                <p class="modal-left-text">Если бы ты строил ЛРТ, то его бы
+                <p class="modal-left-title" id="your-result">Твой результат: </p>
+                <p class="modal-left-score"><span id="score">10000</span> <span id="score-text">очков</span></p>
+                <p class="modal-left-text" id="modal-text">Если бы ты строил ЛРТ, то его бы
                   уже закончили</p>
-                <button class="modal-left-btn" onclick="game.initialize(); game.resultModal.style.display = 'none'; game.start(); return false;">Играть еще раз</button>
+                <button id="modal-restart" class="modal-left-btn" onclick="game.initialize(); game.resultModal.style.display = 'none'; game.start(); return false;">Играть еще раз</button>
               </div>
               <div class="modal-right">
                 <img src="img/modal-img.png" alt="modal img">
               </div>
             </div>
-            <div class="modal-text">НЕ ЗАБУДЬ ПОДЕЛИТЬСЯ В СТОРИС</div>
+            <div class="modal-text" id="share">НЕ ЗАБУДЬ ПОДЕЛИТЬСЯ В СТОРИС</div>
           </div>
         </div>
         <div id="personModal" class="person-modal">
@@ -72,10 +72,10 @@
                     </div>
                   </div>
 
-                  <div onclick="selectCharacter(0)" class="person-modal-conent_btn">
+                  <button onclick="selectCharacter(0)" class="person-modal-conent_btn">
                       <p class="person-modal-conent_btn-text">Выбрать</p>
                       <img src="img/lock.svg" alt="">
-                    </div>
+                  </button>
                 </div>
                 <div class="swiper-slide">
                   <p class="person-modal-content_person">Obojayu</p>
@@ -85,10 +85,10 @@
                     </div>
                   </div>
 
-                  <div onclick="selectCharacter(1)" class="person-modal-conent_btn">
+                    <button disabled="secondP" onclick="selectCharacter(1)" class="person-modal-conent_btn disabled">
                       <p class="person-modal-conent_btn-text">Выбрать</p>
                       <img src="img/lock.svg" alt="">
-                    </div>
+                    </button>
                 </div>
                 <div class="swiper-slide">
                   <p class="person-modal-content_person">Krash</p>
@@ -98,10 +98,10 @@
                     </div>
                   </div>
 
-                  <div onclick="selectCharacter(2)" class="person-modal-conent_btn">
+                    <button onclick="selectCharacter(2)" class="person-modal-conent_btn">
                       <p class="person-modal-conent_btn-text">Выбрать</p>
                       <img src="img/lock.svg" alt="">
-                    </div>
+                    </button>
                 </div>
               </div>
               <div class="swiper-button-next">
@@ -118,9 +118,64 @@
     
   </div>
   <script>
+    const resultData = {
+      "ru": {
+        "selectPerson": "Выбор <br> персонажа",
+        "yourResult": "Твой результат:",
+        "scoreText": "очков",
+        "modalText": "Если бы ты строил ЛРТ, то его бы уже закончили",
+        "modalRestart": "Играть еще раз",
+        "share": "НЕ ЗАБУДЬ ПОДЕЛИТЬСЯ В СТОРИС",
+      },
+      "kz": {
+        "selectPerson": "Кейіпкер <br> персонажа",
+        "yourResult": "Сенің нәтижең:",
+        "scoreText": "ұпай",
+        "modalText": "Егер сен ЛРТ-ны құрғаныңда, онда ол бітіп қалар еді",
+        "modalRestart": "Басынан бастау",
+        "share": "СТОРИСЫҢМЕН БӨЛІСУДІ ҰМЫТПА",
+      }
+    }
+    const yourResult = document.querySelector('#your-result');
+    const scoreText = document.querySelector('#score-text');
+    const modalText = document.querySelector('#modal-text');
+    const modalRestart = document.querySelector('#modal-restart');
+    const share = document.querySelector('#share');
+
+    const localScore = localStorage.getItem('lrt_game_score');
+    const selectPersonBtns = document.querySelectorAll('.person-modal-conent_btn');
+    let secondP = false;
+    let thirdP = true;
+    // if(localScore > 1000 && localScore < 2000) {
+    //   secondP = true;
+    //   selectPersonBtns[1].classList.remove('disabled');
+    // }
+    // else if(localScore > 2000) {
+    //   thirdP = true; 
+    //   selectPersonBtns[2].classList.remove('disabled');
+    // }
+
+
     const select = document.getElementById('selectPerson');
     const personModal = document.getElementById('personModal');
     const modalClose = document.getElementById('modal-close');
+
+
+    const lang = localStorage.getItem('lang');
+
+    if(lang) {
+      yourResult.textContent = resultData[lang].yourResult;
+      scoreText.textContent = resultData[lang].scoreText;
+      modalText.textContent = resultData[lang].modalText;
+      modalRestart.textContent = resultData[lang].modalRestart;
+      share.textContent = resultData[lang].share;
+      select.innerHTML = resultData[lang].selectPerson
+    }
+
+
+
+
+
     select.addEventListener('click', () => {
         personModal.style.display = 'flex';
         game.stop();
@@ -131,6 +186,7 @@
     });
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
+        console.log(event);
         if (event.target === personModal) {
             personModal.style.display = "none";
             game.start();
@@ -153,7 +209,6 @@
   <script type="text/javascript">
     var game = new Canabalt(document.getElementById('game'), {fps: 100}).start();
   </script>
-  <script src="canabalt.js"></script>
   
 </body>
 </html>

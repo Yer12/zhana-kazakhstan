@@ -72,13 +72,14 @@ a {
     font-style: normal;
     font-weight: 700;
     font-size: 32px;
-    width: 300px;
+    width: 350px;
     line-height: 119.6%;
     text-decoration: none;
     color: white;
 }
-.main-header_item > br {
-    display: none;
+.main-header_item br {
+    display: none !important;
+    
 }
 #frame {
     height: 100vh;
@@ -423,11 +424,17 @@ a {
     box-shadow: inset -4px -4px 0px #D5B800, inset 4px 4px 0px #FDFF89;
     border-radius: 6px;   
     cursor: pointer;
+    border: none;
+}
+.person-modal-conent_btn.disabled {
+    background: rgba(255, 220, 0, 0.5);
+    box-shadow: inset -4px -4px 0px rgba(213, 184, 0, 0.3), inset 4px 4px 0px rgba(255, 220, 0, 0.3);
 }
 .person-modal-conent_btn img {
     position: absolute;
     top: -10px;
     right: -86px;
+    z-index: 99;
 }
 .person-modal-conent_btn-text {
     font-family: 'Supermolot';

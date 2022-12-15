@@ -7,7 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Zhana Kazakhstan</title>
     <link rel="stylesheet" href="style.css">
-    
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/imask/6.2.2/imask.min.js"
+            integrity="sha512-UiMZ98G+LXQNCpmcn/nxJbjM3RI6zz65RWYDNOplS8R/DaLWXveVs7QoqwqCbfkUqcI1t36PcTYc8gCFs2gkHA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    ></script>
 </head>
 <body>
     <div class="main">
@@ -21,16 +26,123 @@
                 <img src="img/game logo.svg" alt="">
             </div>
             <p class="game-title">Qazaqstan Game</p>
-            <p class="game-subtitle">Узнай, насколько ты вписываешься в новую реальность и <br>
+            <p class="game-subtitle" id="game-subtitle">Узнай, насколько ты вписываешься в новую реальность и <br>
                  зарубись за приставку, фитнес-часы или абонементы</p>
             <div class="game-form">
-                <input type="text" class="game-form_name" placeholder="Введи никнейм" name="" id="">
-                <input type="text" class="game-form_tel" placeholder="+7 (7__)___-__-__" name="" id="">
+                <input type="text" class="game-form_name" id="name" placeholder="Введи никнейм" name="name">
+                <input type="tel" class="game-form_tel" id="phone" placeholder="+7 (7__)___-__-__" name="phone" >
             </div>
-            <a href="rules.html">Играть</a>
+            <button onclick="checkUser()" type="submit" id="game-start">Играть</button>
+
+            <div class="game-lang">
+                <p language="kz" class="game-lang_item">қаз</p>
+                <p class="">∎</p>
+                <p language="ru" class="game-lang_item active">рус</p>
+            </div>
         </div>
     </div>
 
-    
+    <script>
+        const phone = document.getElementById("phone")
+        const name = document.getElementById("name")
+
+        const formatPhone = (phone) => {
+            const newPhone = phone.replace(/\D/g, '').slice(-11);
+            // +77784442233
+            return `+${newPhone}`;
+        };
+
+
+        IMask(
+            document.getElementById('phone'), {
+                mask: '+{7}(000)000-00-00'
+            });
+
+        const data = {
+            "kz": {
+                "subtitle": "Қазақша контент",
+                "inputName": "Аты жөніңіз",
+                "start": "Ойнау",
+            },
+            "ru": {
+                "subtitle": "Узнай, насколько ты вписываешься в новую реальность и <br> зарубись за приставку, фитнес-часы или абонементы",
+                "inputName": "Введи никнейм",
+                "start": "Играть",
+            }
+        }
+
+        const langEl = document.querySelector('.game-lang');
+        const link = document.querySelectorAll('.game-lang_item');
+        const subtitle = document.querySelector('#game-subtitle');
+        const inputName = document.querySelector('#name');
+        const start = document.querySelector('#game-start');
+        if(localStorage.getItem('lang')) {
+            let lang = localStorage.getItem('lang');
+            if(lang === 'kz') {
+                link[1].classList.remove('active');
+                link[0].classList.add('active');
+            }
+            else {
+                link[0].classList.remove('active');
+                link[1].classList.add('active');
+            }
+            subtitle.innerHTML = data[lang].subtitle;
+            inputName.placeholder = data[lang].inputName;
+            start.textContent = data[lang].start;
+        }
+        
+        link.forEach(el => {
+            el.addEventListener('click', () => {
+                langEl.querySelector('.active').classList.remove('active');
+                el.classList.add('active');
+                const attr = el.getAttribute('language');                
+                localStorage.setItem('lang', attr);
+                subtitle.innerHTML = data[attr].subtitle;
+                inputName.placeholder = data[attr].inputName;
+                start.textContent = data[attr].start;
+            })
+        })
+
+        function checkUser() {
+            if(name.value.length === 0 || phone.value.length === 0) {
+                alert("Заполните форму правильно!")
+            }
+            else {
+                if(phone.value.length === 16 && name.value.length !== 0) {
+                    localStorage.setItem('lrt_game_phone', formatPhone(phone.value))
+                    localStorage.setItem('lrt_game_nickname', name.value)
+                    localStorage.setItem('lrt_game_score', '0')
+
+                    let payload =
+                        {
+                            phone: formatPhone(phone.value),
+                            lrt_game_nickname: name.value,
+                            lrt_game_score: 0
+                        }
+
+                    fetch('https://api.dev.1fit.app/api/lead/lrt_game/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        body: JSON.stringify(payload)
+                    })
+                        .then((resp) => {
+                            console.log(resp);
+                            window.location.href="rules.html";
+                        })
+                        .catch((error) => {
+                        });
+
+                    
+                }
+                else {
+                    alert("Не правильный номер", phone.value.length)
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </body>
 </html>
