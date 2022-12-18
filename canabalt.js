@@ -73,6 +73,7 @@ Canabalt.prototype.readOption = function(option) {
 };
 
 const selectCharacter = (char) => {
+  console.log(char);
   this.Canabalt.CHARACTER = char;
   document.getElementById('personModal').style.display = 'none';
   game.start();
@@ -253,7 +254,7 @@ Canabalt.prototype.startInputCapture = function() {
     }
   };
 
-  if(window.outerWidth < 575) {
+  if(window.outerWidth < 975) {
     document.addEventListener('touchstart', function(e){
       document.onkeydown({keyCode: 32});
     })
@@ -407,29 +408,38 @@ Canabalt.prototype.cycle = function() {
             game.stop();
             this.runner.classList.add('die');
             this.score.innerHTML = this.distanceCounter.innerHTML.slice(0, -1);
-            console.log(this.score);
-            localStorage.setItem('lrt_game_score', this.score.innerHTML)
-            let payload =
-                {
-                  phone: localStorage.getItem('lrt_game_phone'),
-                  lrt_game_nickname: localStorage.getItem('lrt_game_nickname'),
-                  lrt_game_score: parseInt(this.score.innerHTML)
-                }
+            if(localStorage.getItem('lrt_game_score')) {
+              console.log(localStorage.getItem('lrt_game_score') < this.score.innerHTML);
+              if(+localStorage.getItem('lrt_game_score') < +this.score.innerHTML) {
+                console.log('score new');
+                localStorage.setItem('lrt_game_score', this.score.innerHTML)
+                let payload =
+                    {
+                      phone: localStorage.getItem('lrt_game_phone'),
+                      lrt_game_nickname: localStorage.getItem('lrt_game_nickname'),
+                      lrt_game_score: parseInt(this.score.innerHTML)
+                    }
 
-            fetch('https://api.dev.1fit.app/api/lead/lrt_game/', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-              },
-              body: JSON.stringify(payload)
-            })
-                .then((resp) => {
-                  console.log(resp);
+                fetch('https://api.dev.1fit.app/api/lead/lrt_game/', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                  },
+                  body: JSON.stringify(payload)
                 })
-                .catch((error) => {
-                });
-
-
+                    .then((resp) => {
+                      console.log(resp);
+                    })
+                    .catch((error) => {
+                    });
+              }
+              else {
+                console.log(localStorage.getItem('lrt_game_score'), this.score.innerHTML, localStorage.getItem('lrt_game_score') < this.score.innerHTML);
+              }
+            }
+            else {
+              console.log('score not have');
+            }
             setTimeout(()=> {
               this.resultModal.style.display = "flex";
             }, 1000 );

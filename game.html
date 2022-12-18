@@ -19,7 +19,8 @@
   <div id="wrapper">
       <div class="header">
         <div class="main-header_item">
-            
+          <!-- <iframe src="img/ConnorPriceViolet.mp3" allow="autoplay"></iframe> -->
+            <audio src="img/ConnorPriceViolet.mp3" id="my_audio" loop="loop" autoplay="autoplay">
         </div>
           <a href="index.html" id="logo" class="header-item">
               <img src="img/logo.png" alt="" />
@@ -85,7 +86,7 @@
                     </div>
                   </div>
 
-                    <button disabled="secondP" onclick="selectCharacter(1)" class="person-modal-conent_btn disabled">
+                    <button onclick="selectCharacter(1)" class="person-modal-conent_btn disabled">
                       <p class="person-modal-conent_btn-text">Выбрать</p>
                       <img src="img/lock.svg" alt="">
                     </button>
@@ -98,7 +99,7 @@
                     </div>
                   </div>
 
-                    <button onclick="selectCharacter(2)" class="person-modal-conent_btn">
+                    <button onclick="selectCharacter(2)" class="person-modal-conent_btn disabled">
                       <p class="person-modal-conent_btn-text">Выбрать</p>
                       <img src="img/lock.svg" alt="">
                     </button>
@@ -118,6 +119,7 @@
     
   </div>
   <script>
+    document.getElementById('my_audio').play();
     const resultData = {
       "ru": {
         "selectPerson": "Выбор <br> персонажа",
@@ -143,17 +145,20 @@
     const share = document.querySelector('#share');
 
     const localScore = localStorage.getItem('lrt_game_score');
+    console.log(localScore);
     const selectPersonBtns = document.querySelectorAll('.person-modal-conent_btn');
-    let secondP = false;
+    let secondP = true;
     let thirdP = true;
-    // if(localScore > 1000 && localScore < 2000) {
-    //   secondP = true;
-    //   selectPersonBtns[1].classList.remove('disabled');
-    // }
-    // else if(localScore > 2000) {
-    //   thirdP = true; 
-    //   selectPersonBtns[2].classList.remove('disabled');
-    // }
+    if(localScore > 1000) {
+      secondP = false;
+      console.log(secondP, 'second opened')
+      selectPersonBtns[1].classList.remove('disabled');
+    }
+    if(localScore > 2000) {
+      console.log(thirdP, 'third opened')
+      thirdP = false; 
+      selectPersonBtns[2].classList.remove('disabled');
+    }
 
 
     const select = document.getElementById('selectPerson');
