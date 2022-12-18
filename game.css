@@ -19,7 +19,8 @@
     --app-height: 100%;
 }
 
-body {
+body, html {
+    user-select: none;
     margin: 0;
     padding: 0;
     font-family: 'Manrope';
