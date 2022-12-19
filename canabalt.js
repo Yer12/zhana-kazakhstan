@@ -511,16 +511,57 @@ Canabalt.prototype.cycle = function() {
   this.lastCycle = Date.now();
 };
 
+function shuffle(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
 Canabalt.Building = function(game, options) {
   this.game = game;
+  const wB = [
+    300,1000, 
+    320, 340, 
+    400, 860,
+    610, 640, 
+    1010, 1020,
+    1020, 1030,
+    450, 650,
+    864, 865, 
+    1300, 300, 
+    863, 990,
+    620, 630, 
+    1200, 550, 
+    350, 900,
+    950, 500,
+    866, 862,
+    1220, 1230,
+    600, 862];
   this.type = Canabalt.Building.TYPE_NORMAL;
-
+    
     if(window.outerWidth < 575) {
-      this.width = 300 + Math.round(Math.random() * 1000);
+      shuffle(wB);
+      console.log(wB[0]);
+      // this.width = 300 + Math.round(Math.random() * 1000);
+      this.width = wB[0];
       this.height = 200 + Math.round(Math.random() * 100);
     }
   else {
-      this.width = 300 + Math.round(Math.random() * 1000);
+      // this.width = 300 + Math.round(Math.random() * 1000);
+      shuffle(wB);
+      console.log(wB[0]);
+      this.width = wB[0];
       this.height = 200 + Math.round(Math.random() * 100);
   }
   this.gap = Math.round(this.game.speed * 300);
@@ -653,83 +694,82 @@ function get_random (list) {
 Canabalt.Building.prototype.draw = function() {
   if (!this.expired) {
     // 300
-    if(this.element.offsetWidth < 270) {
+    if(this.element.offsetWidth <= 300) {
       this.element.style.backgroundImage = 'url(img/buildings/b300_1.svg)';
       this.element.style.backgroundSize = 'cover';
     }
-    else if(this.element.offsetWidth > 270 && this.element.offsetWidth < 380) {
+    else if(this.element.offsetWidth > 300 && this.element.offsetWidth <= 320) {
       this.element.style.backgroundImage = 'url(img/buildings/b300_2.svg)';
       this.element.style.backgroundSize = 'cover';
     }
-    else if(this.element.offsetWidth > 380 && this.element.offsetWidth < 490) {
+    else if(this.element.offsetWidth > 320 && this.element.offsetWidth <= 340) {
       this.element.style.backgroundImage = 'url(img/buildings/b300_3.svg)';
       this.element.style.backgroundSize = 'cover';
     }
-    else if(this.element.offsetWidth > 490 && this.element.offsetWidth < 600) {
+    else if(this.element.offsetWidth > 340 && this.element.offsetWidth <= 350) {
       this.element.style.backgroundImage = 'url(img/buildings/b300_4.svg)';
       this.element.style.backgroundSize = 'cover';
     }
     
     // 500
-    else if(this.element.offsetWidth > 600 && this.element.offsetWidth < 701) {
+    else if(this.element.offsetWidth > 500 && this.element.offsetWidth <= 600) {
       this.element.style.backgroundImage = 'url(img/buildings/b500_1.svg)';
     }
-
     //600 - 700
-    else if(this.element.offsetWidth > 701 && this.element.offsetWidth < 730) {
+    else if(this.element.offsetWidth > 600 && this.element.offsetWidth <= 610) {
       this.element.style.backgroundImage = 'url(img/buildings/b600_1.svg)';
     }
-    else if(this.element.offsetWidth > 730 && this.element.offsetWidth < 750) {
+    else if(this.element.offsetWidth > 610 && this.element.offsetWidth <= 620) {
       this.element.style.backgroundImage = 'url(img/buildings/b600_2.svg)';
     }
-    else if(this.element.offsetWidth > 750 && this.element.offsetWidth < 770) {
+    else if(this.element.offsetWidth > 620 && this.element.offsetWidth <= 630) {
       this.element.style.backgroundImage = 'url(img/buildings/b600_3.svg)';
     }
-    else if(this.element.offsetWidth > 770 && this.element.offsetWidth < 790) {
+    else if(this.element.offsetWidth > 630 && this.element.offsetWidth <= 640) {
       this.element.style.backgroundImage = 'url(img/buildings/b600_4.svg)';
     }
-    else if(this.element.offsetWidth > 790 && this.element.offsetWidth < 820) {
+    else if(this.element.offsetWidth > 640 && this.element.offsetWidth <= 650) {
       this.element.style.backgroundImage = 'url(img/buildings/b600_5.svg)';
     }
-
     //700 - 900
-    else if(this.element.offsetWidth > 820 && this.element.offsetWidth < 850) {
+    else if(this.element.offsetWidth > 860 && this.element.offsetWidth <= 862) {
       this.element.style.backgroundImage = 'url(img/buildings/b866_1.svg)';
     }
-    else if(this.element.offsetWidth > 850 && this.element.offsetWidth < 870) {
+    else if(this.element.offsetWidth > 862 && this.element.offsetWidth <= 863) {
       this.element.style.backgroundImage = 'url(img/buildings/b866_2.svg)';
       this.element.style.backgroundSize = 'cover';
     }
-    else if(this.element.offsetWidth > 870 && this.element.offsetWidth < 890) {
+    else if(this.element.offsetWidth > 863 && this.element.offsetWidth <= 864) {
       this.element.style.backgroundImage = 'url(img/buildings/b866_3.svg)';
       this.element.style.backgroundSize = 'cover';
     }
-    else if(this.element.offsetWidth > 890 && this.element.offsetWidth < 900) {
+    else if(this.element.offsetWidth > 864 && this.element.offsetWidth <= 865) {
       this.element.style.backgroundImage = 'url(img/buildings/b866_4.svg)';
       this.element.style.backgroundSize = 'cover';
     }
-    else if(this.element.offsetWidth > 900 && this.element.offsetWidth < 950) {
+    else if(this.element.offsetWidth > 865 && this.element.offsetWidth <= 866) {
       this.element.style.backgroundImage = 'url(img/buildings/b866_5.svg)';
       this.element.style.backgroundSize = 'cover';
     }
-
     // 900 - 1100
-    else if(this.element.offsetWidth > 950 && this.element.offsetWidth < 990) {
+    else if(this.element.offsetWidth > 999 && this.element.offsetWidth <= 1010) {
       this.element.style.backgroundImage = 'url(img/buildings/b1000_1.svg)';
     }
-    else if(this.element.offsetWidth > 990 && this.element.offsetWidth < 1050) {
+    else if(this.element.offsetWidth > 1010 && this.element.offsetWidth <= 1020) {
       this.element.style.backgroundImage = 'url(img/buildings/b1000_2.svg)';
     }
-    else if(this.element.offsetWidth > 1050 && this.element.offsetWidth < 1100) {
+    else if(this.element.offsetWidth > 1020 && this.element.offsetWidth <= 1030) {
       this.element.style.backgroundImage = 'url(img/buildings/b1000_3.svg)';
     }
-
     // 1100 - 1300
-    else if(this.element.offsetWidth > 1100 && this.element.offsetWidth < 1200) {
+    else if(this.element.offsetWidth > 1199 && this.element.offsetWidth <= 1210) {
       this.element.style.backgroundImage = 'url(img/buildings/b1200_1.svg)';
     }
-    else if(this.element.offsetWidth > 1200 && this.element.offsetWidth < 1300) {
+    else if(this.element.offsetWidth > 1210 && this.element.offsetWidth <= 1220) {
       this.element.style.backgroundImage = 'url(img/buildings/b1200_2.svg)';
+    }
+    else if(this.element.offsetWidth > 1220 && this.element.offsetWidth <= 1230) {
+      this.element.style.backgroundImage = 'url(img/buildings/b1200_3.svg)';
     }
 
     // else
