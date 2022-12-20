@@ -28,8 +28,8 @@
           <div id="selectPerson" class="main-header_item">
               Выбор <br> персонажа
           </div>
-          <!-- <a href="#" id="pause" onclick="if (game.paused()) { game.start(); this.innerHTML = 'Pause'; } else { game.stop(); this.innerHTML = 'Continue'; }; return false;">Pause</a>
-          <a href="#" id="restart" onclick="game.initialize(); game.start(); return false;">Restart</a> -->
+          <a href="#" id="pause" onclick="if (game.paused()) { game.start(); this.innerHTML = 'Pause'; } else { game.stop(); this.innerHTML = 'Continue'; }; return false;">Pause</a>
+          <a href="#" id="restart" onclick="game.initialize(); game.start(); return false;">Restart</a>
       </div>
     <div id="frame">
       <div id="game">
@@ -50,7 +50,7 @@
                 <button id="modal-restart" class="modal-left-btn" onclick="game.initialize(); game.resultModal.style.display = 'none'; game.start(); return false;">Играть еще раз</button>
               </div>
               <div class="modal-right">
-                <img src="img/modal-img.png" alt="modal img">
+                <img id="resImg" src="img/modal-img0.png" alt="modal img">
               </div>
             </div>
             <div class="modal-text" id="share">НЕ ЗАБУДЬ ПОДЕЛИТЬСЯ В СТОРИС</div>
@@ -62,7 +62,7 @@
             <div class="person-modal-content_header">
               <img src="img/logo.svg" alt="">
             </div>
-            <p class="person-modal-content_title modal-left-title">Ваш персонаж:</p>
+            <p id="yourPerson" class="person-modal-content_title modal-left-title">Ваш персонаж:</p>
             <div class="swiper mySwiper">
               <div class="swiper-wrapper">
                 <div class="swiper-slide">
@@ -74,34 +74,34 @@
                   </div>
 
                   <button onclick="selectCharacter(0)" class="person-modal-conent_btn">
-                      <p class="person-modal-conent_btn-text">Выбрать</p>
-                      <img src="img/lock.svg" alt="">
+                      <p id="selectBtnText" class="person-modal-conent_btn-text">Выбрать</p>
+                      <!-- <img src="img/lock.svg" alt=""> -->
                   </button>
                 </div>
                 <div class="swiper-slide">
-                  <p class="person-modal-content_person">Obojayu</p>
+                  <p class="person-modal-content_person">Обожаю плавать</p>
                   <div>
                     <div class="person-modal-content_img">
                       <img src="img/swim.svg" alt="">
                     </div>
                   </div>
 
-                    <button onclick="selectCharacter(1)" class="person-modal-conent_btn disabled">
-                      <p class="person-modal-conent_btn-text">Выбрать</p>
-                      <img src="img/lock.svg" alt="">
+                    <button id="secondB" disabled="true" onclick="selectCharacter(1)" class="person-modal-conent_btn disabled">
+                      <p id="selectBtnText" class="person-modal-conent_btn-text">Выбрать</p>
+                      <img id="person2" src="img/lock.svg" alt="">
                     </button>
                 </div>
                 <div class="swiper-slide">
-                  <p class="person-modal-content_person">Krash</p>
+                  <p class="person-modal-content_person">КРАШ</p>
                   <div>
                     <div class="person-modal-content_img">
                       <img src="img/krash.svg" alt="">
                     </div>
                   </div>
 
-                    <button onclick="selectCharacter(2)" class="person-modal-conent_btn disabled">
-                      <p class="person-modal-conent_btn-text">Выбрать</p>
-                      <img src="img/lock.svg" alt="">
+                    <button id="thirdB" disabled="true" onclick="selectCharacter(2)" class="person-modal-conent_btn disabled">
+                      <p id="selectBtnText" class="person-modal-conent_btn-text">Выбрать</p>
+                      <img id="person3" src="img/lock.svg" alt="">
                     </button>
                 </div>
               </div>
@@ -119,7 +119,6 @@
     
   </div>
   <script>
-    document.getElementById('my_audio').play();
     const resultData = {
       "ru": {
         "selectPerson": "Выбор <br> персонажа",
@@ -128,35 +127,43 @@
         "modalText": "Если бы ты строил ЛРТ, то его бы уже закончили",
         "modalRestart": "Играть еще раз",
         "share": "НЕ ЗАБУДЬ ПОДЕЛИТЬСЯ В СТОРИС",
+        "yourPerson": "Ваш персонаж:",
+        "selectBtnText": "Выбрать"
       },
       "kz": {
-        "selectPerson": "Кейіпкер <br> персонажа",
+        "selectPerson": "Кейіпкер <br> таңдау",
         "yourResult": "Сенің нәтижең:",
         "scoreText": "ұпай",
         "modalText": "Егер сен ЛРТ-ны құрғаныңда, онда ол бітіп қалар еді",
-        "modalRestart": "Басынан бастау",
-        "share": "СТОРИСЫҢМЕН БӨЛІСУДІ ҰМЫТПА",
+        "modalRestart": "Тағы бір рет ойнау",
+        "share": "СТОРИСТЕ БӨЛІСУГЕ ҰМЫТПА",
+        "yourPerson": "Сенің кейіпкерің:",
+        "selectBtnText": "Таңдау"
       }
     }
     const yourResult = document.querySelector('#your-result');
+    const yourPerson = document.querySelector('#yourPerson');
     const scoreText = document.querySelector('#score-text');
     const modalText = document.querySelector('#modal-text');
     const modalRestart = document.querySelector('#modal-restart');
     const share = document.querySelector('#share');
-
+    const lock2 = document.querySelector('#person2')
+    const lock3 = document.querySelector('#person3');
     const localScore = localStorage.getItem('lrt_game_score');
-    console.log(localScore);
     const selectPersonBtns = document.querySelectorAll('.person-modal-conent_btn');
-    let secondP = true;
-    let thirdP = true;
+    const selectBtnText = document.querySelectorAll('.person-modal-conent_btn-text');
+
+    console.log(document.querySelector('#secondB'))
     if(localScore > 1000) {
-      secondP = false;
-      console.log(secondP, 'second opened')
+      document.querySelector('#secondB').disabled = false;
+      lock2.style.display = 'none';
+      console.log(selectPersonBtns[1])
       selectPersonBtns[1].classList.remove('disabled');
     }
     if(localScore > 2000) {
-      console.log(thirdP, 'third opened')
-      thirdP = false; 
+      document.querySelector('#thirdB').disabled = false; 
+      lock3.style.display = 'none';
+      console.log(selectPersonBtns[2])
       selectPersonBtns[2].classList.remove('disabled');
     }
 
@@ -175,6 +182,10 @@
       modalRestart.textContent = resultData[lang].modalRestart;
       share.textContent = resultData[lang].share;
       select.innerHTML = resultData[lang].selectPerson
+      yourPerson.innerHTML = resultData[lang].yourPerson
+      selectBtnText.forEach((b) => {
+        b.innerHTML = resultData[lang].selectBtnText
+      })
     }
 
 

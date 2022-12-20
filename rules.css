@@ -1,18 +1,18 @@
 @font-face {
     font-family: 'Supermolot';
-    src: url(fonts/TTSupermolotNeue-Regular.ttf);
+    src: url(fonts/Supermolot.otf);
     font-weight: 400;
 }
 
 @font-face {
     font-family: 'Supermolot';
-    src: url(fonts/TTSupermolotNeue-Bold.ttf);
+    src: url(fonts/Supermolot\ Bold.otf);
     font-weight: 700;
 }
 
 @font-face {
     font-family: 'Supermolot';
-    src: url(fonts/TTSupermolotNeue-Black.ttf);
+    src: url(fonts/Supermolot\ Black.otf);
     font-weight: 900;
 }
 
@@ -49,11 +49,20 @@ body {
 }
 .rules-container {
     margin-top: 100px;
-    background-color: rgba(0, 0, 0, .1);
+    background-color: rgba(0, 0, 0, .3);
     border-radius: 12px;
-    width: calc(100% - 174px);
+    width: calc(100% - 154px);
     text-align: center;
-    padding: 47px 87px;
+    padding: 47px 74px;
+}
+#first {
+    display: block;
+}
+#second {
+    display: none;
+}
+#third {
+    display: none;
 }
 .rules-container_title {
     font-family: 'Supermolot';
@@ -70,21 +79,34 @@ body {
     font-family: 'Supermolot';
     font-style: normal;
     font-weight: 400;
-    font-size: 31px;
+    font-size: 26px;
     line-height: 129.3%;
-    /* or 40px */
-    
+    /* or 34px */
+
     text-align: center;
-    
+
     color: #FFDC00;
 }
 .rules-container_btn {
     width: 100%;
     margin-top: 50px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
-.rules-container_btn a {
+.skip {
+    width: auto;
+    font-family: 'Supermolot';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 30px;
+    text-align: center;
+    text-decoration: none;
+    color: #FFFFFF;
+    margin-top: 21px;
+}
+.rules-container_btn #go {
     text-decoration: none;
     display: flex;
     justify-content: center;
@@ -92,9 +114,7 @@ body {
     background: #FFDC00;
     box-shadow: inset -6px -6px 0px #D5B800, inset 6px 6px 0px #FDFF89;
     border-radius: 19px;
-    width: auto;
-    padding-left: 20px;
-    padding-right: 20px;
+    width: 230px;
     height: 61.74px;
     font-family: 'Supermolot';
     font-style: normal;
@@ -139,22 +159,27 @@ body {
     }
     .rules-container {
         margin-top: 30px;
-        padding: 10px 50px;
-        width: calc(100% - 100px);
+        padding: 17px 27px;
+        width: calc(100% - 54px);
     }
     .rules-container_title {
-        font-size: 14px;
-        line-height: 17px;
+        font-size: 16px;
+        line-height: 20px;
     }
     .rules-container_subtitle {
-        font-size: 12px;
+        font-size: 14px;
         line-height: 129.3%;
     }   
-    .rules-container_btn a {
+    .rules-container_btn #go {
         width: 136.43px;
         height: 38.42px;
-        font-size: 16px;
-        border-radius: 6px;
+        font-size: 14px;
+        border-radius: 8.3px;
         line-height: 20px;
     } 
+    .skip {
+        font-size: 13px;
+        line-height: 16px;
+        margin-top: 12px;
+    }
 }

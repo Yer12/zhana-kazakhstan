@@ -1,18 +1,18 @@
 @font-face {
     font-family: 'Supermolot';
-    src: url(fonts/TTSupermolotNeue-Regular.ttf);
+    src: url(fonts/Supermolot.otf);
     font-weight: 400;
 }
 
 @font-face {
     font-family: 'Supermolot';
-    src: url(fonts/TTSupermolotNeue-Bold.ttf);
+    src: url(fonts/Supermolot\ Bold.otf);
     font-weight: 700;
 }
 
 @font-face {
     font-family: 'Supermolot';
-    src: url(fonts/TTSupermolotNeue-Black.ttf);
+    src: url(fonts/Supermolot\ Black.otf);
     font-weight: 900;
 }
 

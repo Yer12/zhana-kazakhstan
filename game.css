@@ -1,18 +1,18 @@
 @font-face {
     font-family: 'Supermolot';
-    src: url(fonts/TTSupermolotNeue-Regular.ttf);
+    src: url(fonts/Supermolot.otf);
     font-weight: 400;
 }
 
 @font-face {
     font-family: 'Supermolot';
-    src: url(fonts/TTSupermolotNeue-Bold.ttf);
+    src: url(fonts/Supermolot\ Bold.otf);
     font-weight: 700;
 }
 
 @font-face {
     font-family: 'Supermolot';
-    src: url(fonts/TTSupermolotNeue-Black.ttf);
+    src: url(fonts/Supermolot\ Black.otf);
     font-weight: 900;
 }
 :root {
@@ -111,7 +111,6 @@ a {
     height: 100px;
     width: 70px !important;
     background-size: cover !important;
-    /*background: url('img/runu.gif') center center;*/
     z-index: 5;
 }
 #game .runner svg {
@@ -149,13 +148,13 @@ a {
 }
 
 #game .paralaxbg1 {
-    background-image: url('img/city.svg');
+    background-image: url('img/city.png');
     z-index: 3;
     background-size: cover;
 }
 
 #game .paralaxbg2 {
-    background-image: url('img/mountains.svg');
+    background-image: url('img/mountains.png');
     z-index: 2;
     background-size: cover;
 }
@@ -316,6 +315,7 @@ a {
     width: 390px; 
 }
 .modal-text {
+    font-family: 'Supermolot';
     font-weight: 700;
     font-size: 15.6466px;
     line-height: 143.8%;
@@ -537,7 +537,7 @@ a {
         height: 100%;
     }
     #game .paralaxbg1 {
-        background-size: cover;
+        background-size: 1164%;
     }
     #game .paralaxbg2 {
         background-size: 990% !important;

@@ -60,14 +60,14 @@
 
         const data = {
             "kz": {
-                "subtitle": "Қазақша контент",
-                "inputName": "Аты жөніңіз",
-                "start": "Ойнау",
+                "subtitle": "Жаңа шындыққа қаншалықты сәйкес келетініңді біліп, ойын-приставка, фитнес сағат немесе абонемент үшін айқас",
+                "inputName": "Осында атыңды жаз",
+                "start": "Ал кеттік",
             },
             "ru": {
                 "subtitle": "Узнай, насколько ты вписываешься в новую реальность и <br> зарубись за приставку, фитнес-часы или абонементы",
-                "inputName": "Введи никнейм",
-                "start": "Играть",
+                "inputName": "Сюда имя",
+                "start": "Погнали",
             }
         }
 
@@ -105,7 +105,13 @@
 
         function checkUser() {
             if(name.value.length === 0 || phone.value.length === 0) {
-                alert("Заполните форму правильно!")
+                let lang = localStorage.getItem('lang');
+                if(lang === 'kz') {
+                    alert("Форманы дұрыс толтырыңыз!")                    
+                }
+                else {
+                    alert("Заполните форму правильно!")
+                }
             }
             else {
                 if(phone.value.length === 16 && name.value.length !== 0) {

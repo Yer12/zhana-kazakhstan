@@ -39,7 +39,7 @@ Canabalt.PARALAX_FG_SPEED = 3;
 Canabalt.PARALAX_FG_INITIAL_WAIT = 3000;
 
 if(window.outerWidth < 575) {
-    Canabalt.PARALAX_BG_1_TOP_OFFSET = '50px';
+    Canabalt.PARALAX_BG_1_TOP_OFFSET = '100px';
     Canabalt.PARALAX_BG_2_TOP_OFFSET = '-35px';
   
     Canabalt.RUNNER_WIDTH = 174;
@@ -73,7 +73,7 @@ Canabalt.prototype.readOption = function(option) {
 };
 
 const selectCharacter = (char) => {
-  console.log(char);
+   document.getElementById('resImg').src = "img/modal-img" + char + ".png"
   this.Canabalt.CHARACTER = char;
   document.getElementById('personModal').style.display = 'none';
   game.start();
@@ -428,7 +428,7 @@ Canabalt.prototype.cycle = function() {
                   body: JSON.stringify(payload)
                 })
                     .then((resp) => {
-                      console.log(resp);
+                      // console.log(resp);
                     })
                     .catch((error) => {
                     });
@@ -533,26 +533,45 @@ Canabalt.Building = function(game, options) {
   const wB = [
     300,1000, 
     320, 340, 
-    400, 860,
+    860, 650,
     610, 640, 
+    1235, 950,
     1010, 1020,
     1020, 1030,
-    450, 650,
+    1230, 866,
     864, 865, 
     1300, 300, 
     863, 990,
     620, 630, 
     1200, 550, 
-    350, 900,
-    950, 500,
+    350, 900, 
+    1235, 500,
     866, 862,
     1220, 1230,
-    600, 862];
+    600, 862,
+    300,1000, 
+    320, 340, 
+    860, 650,
+    610, 640, 
+    1235, 950,
+    1010, 1020,
+    1020, 1030,
+    1230, 866,
+    864, 865, 
+    1300, 300, 
+    863, 990,
+    620, 630, 
+    1200, 550, 
+    350, 900, 
+    1235, 500,
+    866, 862,
+    1220, 1230,
+    600, 862
+  ];
   this.type = Canabalt.Building.TYPE_NORMAL;
     
     if(window.outerWidth < 575) {
       shuffle(wB);
-      console.log(wB[0]);
       // this.width = 300 + Math.round(Math.random() * 1000);
       this.width = wB[0];
       this.height = 200 + Math.round(Math.random() * 100);
@@ -560,7 +579,6 @@ Canabalt.Building = function(game, options) {
   else {
       // this.width = 300 + Math.round(Math.random() * 1000);
       shuffle(wB);
-      console.log(wB[0]);
       this.width = wB[0];
       this.height = 200 + Math.round(Math.random() * 100);
   }
@@ -695,86 +713,89 @@ Canabalt.Building.prototype.draw = function() {
   if (!this.expired) {
     // 300
     if(this.element.offsetWidth <= 300) {
-      this.element.style.backgroundImage = 'url(img/buildings/b300_1.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b300_1.png)';
       this.element.style.backgroundSize = 'cover';
     }
     else if(this.element.offsetWidth > 300 && this.element.offsetWidth <= 320) {
-      this.element.style.backgroundImage = 'url(img/buildings/b300_2.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b300_2.png)';
       this.element.style.backgroundSize = 'cover';
     }
     else if(this.element.offsetWidth > 320 && this.element.offsetWidth <= 340) {
-      this.element.style.backgroundImage = 'url(img/buildings/b300_3.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b300_3.png)';
       this.element.style.backgroundSize = 'cover';
     }
     else if(this.element.offsetWidth > 340 && this.element.offsetWidth <= 350) {
-      this.element.style.backgroundImage = 'url(img/buildings/b300_4.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b300_4.png)';
       this.element.style.backgroundSize = 'cover';
     }
     
     // 500
-    else if(this.element.offsetWidth > 500 && this.element.offsetWidth <= 600) {
-      this.element.style.backgroundImage = 'url(img/buildings/b500_1.svg)';
+    else if(this.element.offsetWidth >= 500 && this.element.offsetWidth <= 600) {
+      this.element.style.backgroundImage = 'url(img/buildings/b500_1.png)';
     }
     //600 - 700
     else if(this.element.offsetWidth > 600 && this.element.offsetWidth <= 610) {
-      this.element.style.backgroundImage = 'url(img/buildings/b600_1.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b600_1.png)';
     }
     else if(this.element.offsetWidth > 610 && this.element.offsetWidth <= 620) {
-      this.element.style.backgroundImage = 'url(img/buildings/b600_2.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b600_2.png)';
     }
     else if(this.element.offsetWidth > 620 && this.element.offsetWidth <= 630) {
-      this.element.style.backgroundImage = 'url(img/buildings/b600_3.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b600_3.png)';
     }
     else if(this.element.offsetWidth > 630 && this.element.offsetWidth <= 640) {
-      this.element.style.backgroundImage = 'url(img/buildings/b600_4.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b600_4.png)';
     }
     else if(this.element.offsetWidth > 640 && this.element.offsetWidth <= 650) {
-      this.element.style.backgroundImage = 'url(img/buildings/b600_5.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b600_5.png)';
     }
     //700 - 900
-    else if(this.element.offsetWidth > 860 && this.element.offsetWidth <= 862) {
-      this.element.style.backgroundImage = 'url(img/buildings/b866_1.svg)';
+    else if(this.element.offsetWidth >= 860 && this.element.offsetWidth <= 862) {
+      this.element.style.backgroundImage = 'url(img/buildings/b866_1.png)';
     }
     else if(this.element.offsetWidth > 862 && this.element.offsetWidth <= 863) {
-      this.element.style.backgroundImage = 'url(img/buildings/b866_2.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b866_2.png)';
       this.element.style.backgroundSize = 'cover';
     }
     else if(this.element.offsetWidth > 863 && this.element.offsetWidth <= 864) {
-      this.element.style.backgroundImage = 'url(img/buildings/b866_3.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b866_3.png)';
       this.element.style.backgroundSize = 'cover';
     }
     else if(this.element.offsetWidth > 864 && this.element.offsetWidth <= 865) {
-      this.element.style.backgroundImage = 'url(img/buildings/b866_4.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b866_4.png)';
       this.element.style.backgroundSize = 'cover';
     }
     else if(this.element.offsetWidth > 865 && this.element.offsetWidth <= 866) {
-      this.element.style.backgroundImage = 'url(img/buildings/b866_5.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b866_5.png)';
       this.element.style.backgroundSize = 'cover';
     }
     // 900 - 1100
-    else if(this.element.offsetWidth > 999 && this.element.offsetWidth <= 1010) {
-      this.element.style.backgroundImage = 'url(img/buildings/b1000_1.svg)';
+    else if(this.element.offsetWidth >= 999 && this.element.offsetWidth <= 1010) {
+      this.element.style.backgroundImage = 'url(img/buildings/b981_1.png)';
     }
     else if(this.element.offsetWidth > 1010 && this.element.offsetWidth <= 1020) {
-      this.element.style.backgroundImage = 'url(img/buildings/b1000_2.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b981_2.png)';
     }
     else if(this.element.offsetWidth > 1020 && this.element.offsetWidth <= 1030) {
-      this.element.style.backgroundImage = 'url(img/buildings/b1000_3.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b981_3.png)';
     }
     // 1100 - 1300
-    else if(this.element.offsetWidth > 1199 && this.element.offsetWidth <= 1210) {
-      this.element.style.backgroundImage = 'url(img/buildings/b1200_1.svg)';
+    else if(this.element.offsetWidth >= 1199 && this.element.offsetWidth <= 1210) {
+      this.element.style.backgroundImage = 'url(img/buildings/b1200_1.png)';
     }
     else if(this.element.offsetWidth > 1210 && this.element.offsetWidth <= 1220) {
-      this.element.style.backgroundImage = 'url(img/buildings/b1200_2.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b1200_2.png)';
     }
     else if(this.element.offsetWidth > 1220 && this.element.offsetWidth <= 1230) {
-      this.element.style.backgroundImage = 'url(img/buildings/b1200_3.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/b1200_3.png)';
+    }
+    else if(this.element.offsetWidth > 1230 && this.element.offsetWidth <= 1235) {
+      this.element.style.backgroundImage = 'url(img/buildings/b1200_3.png)';
     }
 
     // else
     else {
-      this.element.style.backgroundImage = 'url(img/buildings/building.svg)';
+      this.element.style.backgroundImage = 'url(img/buildings/building.png)';
     }
     this.element.style.left = String(this.left) + 'px';
   }
@@ -786,7 +807,7 @@ Canabalt.Building.prototype.draw = function() {
 
 Canabalt.DD.prototype.draw = function() {
     if (!this.expired) {
-        this.element.style.backgroundImage = 'url(img/buildings/b1200_2.svg)';
+        this.element.style.backgroundImage = 'url(img/buildings/b1200_4.png)';
         this.element.style.backgroundSize = 'cover';
 
         this.element.style.left = String(this.left) + 'px';
