@@ -790,92 +790,92 @@ Canabalt.Building.prototype.draw = function() {
   if (!this.expired) {
     // 300
     if(this.element.offsetWidth === 300) {
-      this.element.style.backgroundImage = 'url(img/buildings/b300_1.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b300_1.webp)';
       this.element.style.backgroundSize = 'cover';
     }
     else if(this.element.offsetWidth === 301) {
-      this.element.style.backgroundImage = 'url(img/buildings/b300_2.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b300_2.webp)';
       this.element.style.backgroundSize = 'cover';
     }
     else if(this.element.offsetWidth === 302) {
-      this.element.style.backgroundImage = 'url(img/buildings/b300_3.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b300_3.webp)';
       this.element.style.backgroundSize = 'cover';
     }
     else if(this.element.offsetWidth === 303) {
-      this.element.style.backgroundImage = 'url(img/buildings/b300_4.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b300_4.webp)';
       this.element.style.backgroundSize = 'cover';
     }
     
     // 500
     else if(this.element.offsetWidth === 500) {
-      this.element.style.backgroundImage = 'url(img/buildings/b500_1.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b500_1.webp)';
     }
     else if(this.element.offsetWidth === 501) {
-      this.element.style.backgroundImage = 'url(img/buildings/b500_2.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b500_2.webp)';
     }
     //600 - 700
     else if(this.element.offsetWidth === 600) {
-      this.element.style.backgroundImage = 'url(img/buildings/b600_1.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b600_1.webp)';
     }
     else if(this.element.offsetWidth === 602) {
-      this.element.style.backgroundImage = 'url(img/buildings/b600_2.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b600_2.webp)';
     }
     else if(this.element.offsetWidth === 603) {
-      this.element.style.backgroundImage = 'url(img/buildings/b600_3.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b600_3.webp)';
     }
     else if(this.element.offsetWidth === 604) {
-      this.element.style.backgroundImage = 'url(img/buildings/b600_4.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b600_4.webp)';
     }
     else if(this.element.offsetWidth === 605) {
-      this.element.style.backgroundImage = 'url(img/buildings/b600_5.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b600_5.webp)';
     }
     //700 - 900
     else if(this.element.offsetWidth === 860) {
-      this.element.style.backgroundImage = 'url(img/buildings/b866_1.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b866_1.webp)';
     }
     else if(this.element.offsetWidth === 861) {
-      this.element.style.backgroundImage = 'url(img/buildings/b866_2.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b866_2.webp)';
       this.element.style.backgroundSize = 'cover';
     }
     else if(this.element.offsetWidth === 862) {
-      this.element.style.backgroundImage = 'url(img/buildings/b866_3.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b866_3.webp)';
       this.element.style.backgroundSize = 'cover';
     }
     else if(this.element.offsetWidth === 863) {
-      this.element.style.backgroundImage = 'url(img/buildings/b866_4.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b866_4.webp)';
       this.element.style.backgroundSize = 'cover';
     }
     else if(this.element.offsetWidth === 866) {
-      this.element.style.backgroundImage = 'url(img/buildings/b866_5.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b866_5.webp)';
       this.element.style.backgroundSize = 'cover';
     }
     // 900 - 1100
     else if(this.element.offsetWidth === 981) {
-      this.element.style.backgroundImage = 'url(img/buildings/b981_1.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b981_1.webp)';
     }
     else if(this.element.offsetWidth === 982) {
-      this.element.style.backgroundImage = 'url(img/buildings/b981_2.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b981_2.webp)';
     }
     else if(this.element.offsetWidth === 983) {
-      this.element.style.backgroundImage = 'url(img/buildings/b981_3.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b981_3.webp)';
     }
     // 1100 - 1300
     else if(this.element.offsetWidth === 1200) {
-      this.element.style.backgroundImage = 'url(img/buildings/b1200_1.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b1200_1.webp)';
     }
     else if(this.element.offsetWidth === 1201) {
-      this.element.style.backgroundImage = 'url(img/buildings/b1200_2.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b1200_2.webp)';
     }
     else if(this.element.offsetWidth === 1203) {
-      this.element.style.backgroundImage = 'url(img/buildings/b1200_3.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b1200_3.webp)';
     }
     else if(this.element.offsetWidth === 1204) {
-      this.element.style.backgroundImage = 'url(img/buildings/b1200_4.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/b1200_4.webp)';
     }
 
     // else
     else {
-      this.element.style.backgroundImage = 'url(img/buildings/building.png)';
+      this.element.style.backgroundImage = 'url(img/buildings/building.webp)';
     }
     this.element.style.left = String(this.left) + 'px';
   }
@@ -887,7 +887,7 @@ Canabalt.Building.prototype.draw = function() {
 
 Canabalt.DD.prototype.draw = function() {
     if (!this.expired) {
-        this.element.style.backgroundImage = 'url(img/buildings/b1200_4.png)';
+        this.element.style.backgroundImage = 'url(img/buildings/b1200_4.webp)';
         this.element.style.backgroundSize = 'cover';
 
         this.element.style.left = String(this.left - 50) + 'px';
