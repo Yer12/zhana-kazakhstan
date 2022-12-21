@@ -533,10 +533,10 @@ Canabalt.prototype.cycle = function() {
               modalTitle.innerText = lowResults[lang][Math.floor(Math.random() * lowResults[lang].length)]
             }
             else if(this.score.innerHTML <= 1000 && this.score.innerHTML > 500) {
-              modalTitle.innerText = mediumResults[Math.floor(Math.random() * mediumResults[lang].length)]
+              modalTitle.innerText = mediumResults[lang][Math.floor(Math.random() * mediumResults[lang].length)]
             }
             else {
-              modalTitle.innerText = hardResults[Math.floor(Math.random() * hardResults[lang].length)]
+              modalTitle.innerText = hardResults[lang][Math.floor(Math.random() * hardResults[lang].length)]
             }
             setTimeout(()=> {
               this.resultModal.style.display = "flex";
