@@ -427,7 +427,7 @@ Canabalt.prototype.cycle = function() {
                 let payload =
                     {
                       phone: localStorage.getItem('lrt_game_phone'),
-                      come_from: "zhana-kazakhstan",
+                      come_from: "zhana_kazakhstan",
                       nickname: localStorage.getItem('lrt_game_nickname'),
                       score: parseInt(this.score.innerHTML)
                     }
