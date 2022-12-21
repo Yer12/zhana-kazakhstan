@@ -95,6 +95,9 @@
             inputName.placeholder = data[lang].inputName;
             start.textContent = data[lang].start;
         }
+        else {
+            localStorage.setItem('lang', 'ru');
+        }
         
         link.forEach(el => {
             el.addEventListener('click', () => {
