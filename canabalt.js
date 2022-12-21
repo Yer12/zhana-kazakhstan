@@ -12,6 +12,7 @@ Canabalt = function(container, options) {
   this.buildings = [];
   this.resultModal = document.getElementById('myModal');
   this.personModal = document.getElementById('personModal');
+
   this.score = document.getElementById('score');
   // Milliseconds between frames
   this.mbf = 1500 / this.readOption('fps');
@@ -400,7 +401,19 @@ Canabalt.prototype.cycle = function() {
 
     this.y += this.ySpeed;
     this.ySpeed -= this.gravity;
-  
+    if(localStorage.getItem('lrt_game_score') > 1000) {
+      console.log(localStorage.getItem('lrt_game_score'));
+      document.querySelector('#secondB').disabled = false;
+      document.querySelector('#person2').style.display = 'none';
+      document.getElementById('lockedPerson2').style.display = 'none';
+      document.querySelectorAll('.person-modal-conent_btn')[1].classList.remove('disabled');
+    }
+    if(localStorage.getItem('lrt_game_score') > 1500) {
+      document.querySelector('#thirdB').disabled = false; 
+      document.querySelector('#person3').style.display = 'none';
+      document.getElementById('lockedPerson3').style.display = 'none';
+      document.querySelectorAll('.person-modal-conent_btn')[2].classList.remove('disabled');
+    }
     var h = this.currentBuilding ? this.currentBuilding.height : 0;
     if (this.y < h) {
         if(h - this.y > 10) {
@@ -437,9 +450,7 @@ Canabalt.prototype.cycle = function() {
                 console.log(localStorage.getItem('lrt_game_score'), this.score.innerHTML, localStorage.getItem('lrt_game_score') < this.score.innerHTML);
               }
             }
-            else {
-              console.log('score not have');
-            }
+
             const lowResults = {
               "ru": [
                 'Алматы смог, а ты нет 🤷🏻‍♂️',

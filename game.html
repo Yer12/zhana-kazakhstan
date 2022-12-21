@@ -167,20 +167,7 @@
     const lockedPerson3 = document.getElementById('lockedPerson3');
 
     console.log(document.querySelector('#secondB'))
-    if(localScore > 1000) {
-      document.querySelector('#secondB').disabled = false;
-      lock2.style.display = 'none';
-      lockedPerson2.style.display = 'none';
-      selectPersonBtns[1].classList.remove('disabled');
-    }
-    if(localScore > 1500) {
-      document.querySelector('#thirdB').disabled = false; 
-      lock3.style.display = 'none';
-      lockedPerson3.style.display = 'none';
-      selectPersonBtns[2].classList.remove('disabled');
-    }
-
-
+    
     const select = document.getElementById('selectPerson');
     const personModal = document.getElementById('personModal');
     const modalClose = document.getElementById('modal-close');
