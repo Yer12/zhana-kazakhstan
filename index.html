@@ -5,7 +5,12 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Zhana Kazakhstan</title>
+    <title>Жана Казахстан Game - 1Fit</title>
+    <meta name="title" content="Жана Казахстан Game - 1Fit">
+    <meta 
+        name="description" 
+        content="Игра Жана Казахстан от 1Fit. Играй в Jana Kazakhstan Game до 5 января 2023"
+    >
     <link rel="stylesheet" href="style.css">
     <script
             src="https://cdnjs.cloudflare.com/ajax/libs/imask/6.2.2/imask.min.js"
@@ -115,35 +120,46 @@
             }
             else {
                 if(phone.value.length === 16 && name.value.length !== 0) {
-                    localStorage.setItem('lrt_game_phone', formatPhone(phone.value))
-                    localStorage.setItem('lrt_game_nickname', name.value)
-                    localStorage.setItem('lrt_game_score', '0')
+                    // let payload =
+                    //     {
+                    //         phone: formatPhone(phone.value),
+                    //         lrt_game_nickname: name.value,
+                    //         lrt_game_score: 0
+                    //     }
 
-                    let payload =
-                        {
-                            phone: formatPhone(phone.value),
-                            lrt_game_nickname: name.value,
-                            lrt_game_score: 0
-                        }
-
-                    fetch('https://api.dev.1fit.app/api/lead/lrt_game/', {
-                        method: 'POST',
+                    fetch(`https://api.dev.1fit.app/api/landing/v1/leads/get-trial/?come_from=zhana-kazakhstan&phone=${formatPhone(phone.value).replace('+', '%2B')}`, {
+                        method: 'GET',
                         headers: {
                             'Content-Type': 'application/json;charset=utf-8'
                         },
-                        body: JSON.stringify(payload)
                     })
-                        .then((resp) => {
-                            console.log(resp);
+                        .then((response) => {
+                            if(response.status === 204) {
+                                localStorage.setItem('lrt_game_phone', formatPhone(phone.value))
+                                localStorage.setItem('lrt_game_nickname', name.value)
+                                localStorage.setItem('lrt_game_score', '0')
+                            }
+                            else if(response.status === 200) {
+                                response.json().then((d)=> {
+                                    localStorage.setItem('lrt_game_phone', formatPhone(phone.value))
+                                    localStorage.setItem('lrt_game_nickname', name.value)
+                                    localStorage.setItem('lrt_game_score', d.score)
+                                })
+                                .catch(e => console.log(e))
+                            }
                             window.location.href="rules.html";
-                        })
-                        .catch((error) => {
-                        });
-
-                    
+                    })
                 }
                 else {
-                    alert("Не правильный номер", phone.value.length)
+                    let lang = localStorage.getItem('lang');
+
+                    if(lang === 'kz') {
+                        alert("Нөміріңіз толық емес")                    
+                    }
+                    else {
+                        alert("Не правильный номер")
+                    }
+                    
                 }
             }
         }

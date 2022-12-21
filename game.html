@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Zhana Kazakhstan</title>
+  <title>Жана Казахстан Game - 1Fit</title>
+  <meta name="title" content="Жана Казахстан Game - 1Fit">
+  <meta 
+      name="description" 
+      content="Игра Жана Казахстан от 1Fit. Играй в Jana Kazakhstan Game до 5 января 2023"
+  >
   <script type="text/javascript" src="canabalt.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="game.css">
@@ -28,8 +33,8 @@
           <div id="selectPerson" class="main-header_item">
               Выбор <br> персонажа
           </div>
-          <a href="#" id="pause" onclick="if (game.paused()) { game.start(); this.innerHTML = 'Pause'; } else { game.stop(); this.innerHTML = 'Continue'; }; return false;">Pause</a>
-          <a href="#" id="restart" onclick="game.initialize(); game.start(); return false;">Restart</a>
+          <!-- <a href="#" id="pause" onclick="if (game.paused()) { game.start(); this.innerHTML = 'Pause'; } else { game.stop(); this.innerHTML = 'Continue'; }; return false;">Pause</a>
+          <a href="#" id="restart" onclick="game.initialize(); game.start(); return false;">Restart</a> -->
       </div>
     <div id="frame">
       <div id="game">
@@ -90,6 +95,7 @@
                       <p id="selectBtnText" class="person-modal-conent_btn-text">Выбрать</p>
                       <img id="person2" src="img/lock.svg" alt="">
                     </button>
+                    <p id="lockedPerson2" class="person-modal-locked-text">person-modal-locked-text 1500</p>
                 </div>
                 <div class="swiper-slide">
                   <p class="person-modal-content_person">КРАШ</p>
@@ -103,6 +109,7 @@
                       <p id="selectBtnText" class="person-modal-conent_btn-text">Выбрать</p>
                       <img id="person3" src="img/lock.svg" alt="">
                     </button>
+                    <p id="lockedPerson3" class="person-modal-locked-text">person-modal-locked-text 2000</p>
                 </div>
               </div>
               <div class="swiper-button-next">
@@ -128,7 +135,9 @@
         "modalRestart": "Играть еще раз",
         "share": "НЕ ЗАБУДЬ ПОДЕЛИТЬСЯ В СТОРИС",
         "yourPerson": "Ваш персонаж:",
-        "selectBtnText": "Выбрать"
+        "selectBtnText": "Выбрать",
+        "lockedPerson2": "Набери больше 1000 очков",
+        "lockedPerson3": "Набери больше 1500 очков",
       },
       "kz": {
         "selectPerson": "Кейіпкер <br> таңдау",
@@ -138,7 +147,9 @@
         "modalRestart": "Тағы бір рет ойнау",
         "share": "СТОРИСТЕ БӨЛІСУГЕ ҰМЫТПА",
         "yourPerson": "Сенің кейіпкерің:",
-        "selectBtnText": "Таңдау"
+        "selectBtnText": "Таңдау",
+        "lockedPerson2": "1000-нан көп ұпай жина",
+        "lockedPerson3": "1500-ден көп ұпай жина"
       }
     }
     const yourResult = document.querySelector('#your-result');
@@ -152,18 +163,20 @@
     const localScore = localStorage.getItem('lrt_game_score');
     const selectPersonBtns = document.querySelectorAll('.person-modal-conent_btn');
     const selectBtnText = document.querySelectorAll('.person-modal-conent_btn-text');
+    const lockedPerson2 = document.getElementById('lockedPerson2');
+    const lockedPerson3 = document.getElementById('lockedPerson3');
 
     console.log(document.querySelector('#secondB'))
     if(localScore > 1000) {
       document.querySelector('#secondB').disabled = false;
       lock2.style.display = 'none';
-      console.log(selectPersonBtns[1])
+      lockedPerson2.style.display = 'none';
       selectPersonBtns[1].classList.remove('disabled');
     }
-    if(localScore > 2000) {
+    if(localScore > 1500) {
       document.querySelector('#thirdB').disabled = false; 
       lock3.style.display = 'none';
-      console.log(selectPersonBtns[2])
+      lockedPerson3.style.display = 'none';
       selectPersonBtns[2].classList.remove('disabled');
     }
 
@@ -186,6 +199,8 @@
       selectBtnText.forEach((b) => {
         b.innerHTML = resultData[lang].selectBtnText
       })
+      lockedPerson2.innerHTML = resultData[lang].lockedPerson2
+      lockedPerson3.innerHTML = resultData[lang].lockedPerson3
     }
 
 

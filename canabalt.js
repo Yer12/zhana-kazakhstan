@@ -19,7 +19,6 @@ Canabalt = function(container, options) {
   this.initialize();
 };
 
-
 // Cap game at 90 cycles per second
 Canabalt.CYCLES_PER_SECOND = 90;
 
@@ -401,7 +400,7 @@ Canabalt.prototype.cycle = function() {
 
     this.y += this.ySpeed;
     this.ySpeed -= this.gravity;
-
+  
     var h = this.currentBuilding ? this.currentBuilding.height : 0;
     if (this.y < h) {
         if(h - this.y > 10) {
@@ -409,18 +408,18 @@ Canabalt.prototype.cycle = function() {
             this.runner.classList.add('die');
             this.score.innerHTML = this.distanceCounter.innerHTML.slice(0, -1);
             if(localStorage.getItem('lrt_game_score')) {
-              console.log(localStorage.getItem('lrt_game_score') < this.score.innerHTML);
               if(+localStorage.getItem('lrt_game_score') < +this.score.innerHTML) {
-                console.log('score new');
+
                 localStorage.setItem('lrt_game_score', this.score.innerHTML)
                 let payload =
                     {
                       phone: localStorage.getItem('lrt_game_phone'),
-                      lrt_game_nickname: localStorage.getItem('lrt_game_nickname'),
-                      lrt_game_score: parseInt(this.score.innerHTML)
+                      come_from: "zhana-kazakhstan",
+                      nickname: localStorage.getItem('lrt_game_nickname'),
+                      score: parseInt(this.score.innerHTML)
                     }
 
-                fetch('https://api.dev.1fit.app/api/lead/lrt_game/', {
+                fetch('https://api.dev.1fit.app/api/landing/v1/leads/get-trial/', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json;charset=utf-8'
@@ -428,9 +427,10 @@ Canabalt.prototype.cycle = function() {
                   body: JSON.stringify(payload)
                 })
                     .then((resp) => {
-                      // console.log(resp);
+                      console.log(resp);
                     })
                     .catch((error) => {
+                      console.log(error);
                     });
               }
               else {
@@ -439,6 +439,104 @@ Canabalt.prototype.cycle = function() {
             }
             else {
               console.log('score not have');
+            }
+            const lowResults = {
+              "ru": [
+                'Алматы смог, а ты нет 🤷🏻‍♂️',
+                'За такой результат мы бы тебе повысили цену за аренду квартиры',
+                'Тебе точно нужен город без заборов, потому что прыгаешь ты так себе',
+                'В новом Казахстане таких как ты сбрасывают с Байтерека',
+                'Хотим развидеть твой результат, как реакцию Нуртаса на Баззлайтера',
+                'Результат маленький, зато у него богатый внутренний мир',
+                'С тобой Новый Казахстан мы вряд ли построим 😕',
+                'Падаешь как тенге',
+                'Чето ты тормозишь, инет блочат?',
+                'Все эти пробки по Аль-Фараби из-за тебя, тормоз',
+                'Бокс тебе точно не помешает, реакцию прокачать',
+                'Скачешь неуклюже, как цены на уан фит',
+                'Упал, как вывеска с Нур-Султаном',
+                'Приземлился, как репутация Рамиля',
+                'Ну ты [зацензурено] 🤮',
+                'У тебя появляются новые нейронные связи, как станции метро в Алматы. Также медленно',
+              ],
+              "kz": [
+                'Нәтижең Алматының түтінінде қалып кеткендей, дым көрінбейді 🤷🏻‍♂️',
+                'Мұндай нәтиже үшін біз саған пәтердің ақысын көтеретін едік',
+                'Саған қоршаусыз қала керек екеніне көз жеткіздік, онша секіре алмайсың',
+                'Жаңа Қазақстанда сен сияқтыларды Байтеректен тастайды',
+                'Сенің нәтижеңді Нұртастың Баззлайтерға көрсеткен реакциясы сияқты ұмытқымыз келеді',
+                'Нәтижең кішкентай болғанымен, оның ішкі байлығы барына сенімдіміз',
+                'Жаңа Қазақстанды сенімен бірге құрастыра алмаймыз-ау 😕',
+                'Теңге сияқты түсіп бара жатырсың',
+                'Жылдамдығың дәл интернеттікіндей',
+                'Әл-Фарабидағы кептеліс сенің кесіріңнен, еш асықпайтын адам екенсің',
+                'Реакцияңды жақсарту үшін боксқа барып көрші',
+                'Уан фиттің бағалары сияқты епсіздеу секіресің',
+                'Нұр-Сұлтандағы маңдайша жазуы сияқты құладың ғой',
+                'Рамильдің атағы сияқты жерге түстің ғой',
+                'Ай сені ме… [жаман сөз] 🤮',
+                'Сендегі жаңа нейрондық байланыстар дәл Алматы метросындағы станциялар сияқты. Дәл солай асықпайсың',
+              ]
+            }
+            const mediumResults = {
+              "ru": [
+                'Давай, скажи ещё, что кибератаки тебе помешали нормально сыграть',
+                'Может, на массаж пора тебе? Пальчики размять',
+                'С твоими шансами тебе прямая дорога на выборы Президента',
+                'Попей кумыса, сделай пару отжиманий и попробуй снова',
+                'Мы бы тебя обняли, как Тореш Кайрата',
+                'Не важно, какой прыжок. Главное — как ты им пользуешься',
+                'Результат не маленький, просто в Астане холодно',
+                'Пойдёт! А левая рука у тебя такая же сильная, как и правая?',
+              ],
+              "kz": [
+                'Кибершабуылдан дұрыс ойнай алмай жатырмын демексің бе?',
+                'Мүмкін, массажға барасың? Саусақтарыңа пайдалы болады',
+                'Мұндай мүмкіндіктеріңмен Президенттік сайлауға түсіп көресің бе?',
+                'Қымыз ішіп, бірнеше жаттығу жасап, тағы да ойнап көр',
+                'Төреш Қайратты құшақтағандай біз де сені құшақтадық',
+                'Қалай секіргенің маңызды емес, ең бастысы секіре аласың',
+                'Нәтижең кішкентай емес, бұл тек Астананың суығының кесірінен',
+                'Болады! Ал сенің сол қолың оң қолыңдай мықты ма?',
+              ]
+            }
+            const hardResults = {
+              "ru": [
+                'Ты секси, как редизайн приложения уан фит 💙',
+                '667 Бензема ⚽️',
+                'У тебя результат такой же большой, как цены на недвижку в Казахстане ',
+                'Сумасшедший результат, как сммщик Бисквита 🤯',
+                'Настолько офигенный результат, что мы тебя бы сняли в рекламе уан фита',
+                'Ты бы точно спас ребёнка, который повис с окна, красавчик! ',
+                'Результат охуенчик ',
+                'Воу, какой большой результат. Закинь его в тиндер 🤩',
+                'Настолько быстрый, что тебе прилетит штраф от сергека',
+                'Ты с Байконура? Прыжки просто космос 🧑‍🚀',
+              ],
+              "kz": [
+                'Уан фит қосымшасының редизайны сияқты жағымдысың 💙',
+                '667 Бензема ⚽️',
+                'Нәтижең Қазақстандағы жылжымайтын мүліктің бағасы сияқты, аспандап тұр',
+                'Нәтижең бисквиттің смм-жұмысшысы сияқты жынды екен 🤯',
+                'Сондай керемет нәтиже көрсеттің! Сені уан фиттің жаңа жарнамасында түсірер едік',
+                'Терезеден құлап түсейін деген баланың өмірін сақтап қалатын адам екенсің, жарайсың!',
+                'Нәтижең ө-ө-өлә жынды екен!',
+                'Мә, нәтижең қандай дәу! Тиндерға жариялап сал 🤩',
+                'Сондай жылдамсың, сергек саған айыппұл жіберері анық',
+                'Байқоңырдансың ба не? Секірулерің ғарыш қой 🧑‍🚀',
+              ]
+            }
+            const modalTitle = document.getElementById('modal-text');
+            const lang = localStorage.getItem('lang');
+            console.log(lowResults[lang][0]);
+            if(this.score.innerHTML <= 500) {
+              modalTitle.innerText = lowResults[lang][Math.floor(Math.random() * lowResults[lang].length)]
+            }
+            else if(this.score.innerHTML <= 1000 && this.score.innerHTML > 500) {
+              modalTitle.innerText = mediumResults[Math.floor(Math.random() * mediumResults[lang].length)]
+            }
+            else {
+              modalTitle.innerText = hardResults[Math.floor(Math.random() * hardResults[lang].length)]
             }
             setTimeout(()=> {
               this.resultModal.style.display = "flex";
@@ -455,7 +553,6 @@ Canabalt.prototype.cycle = function() {
     if(this.y === 0) {
       game.stop();
       this.runner.classList.add('die');
-      console.log(this.score);
       setTimeout(()=> {
         this.resultModal.style.display = "flex";
       }, 1000 );
@@ -528,60 +625,30 @@ function shuffle(array) {
 
   return array;
 }
+let c = 0;
 Canabalt.Building = function(game, options) {
   this.game = game;
   const wB = [
-    300,1000, 
-    320, 340, 
-    860, 650,
-    610, 640, 
-    1235, 950,
-    1010, 1020,
-    1020, 1030,
-    1230, 866,
-    864, 865, 
-    1300, 300, 
-    863, 990,
-    620, 630, 
-    1200, 550, 
-    350, 900, 
-    1235, 500,
-    866, 862,
-    1220, 1230,
-    600, 862,
-    300,1000, 
-    320, 340, 
-    860, 650,
-    610, 640, 
-    1235, 950,
-    1010, 1020,
-    1020, 1030,
-    1230, 866,
-    864, 865, 
-    1300, 300, 
-    863, 990,
-    620, 630, 
-    1200, 550, 
-    350, 900, 
-    1235, 500,
-    866, 862,
-    1220, 1230,
-    600, 862
+    863, 300, 603, 500,603,
+    1200, 982, 860, 982,
+    302, 982, 605, 501,
+    600, 603, 982, 981,
+    603, 301, 501, 
+    1201,982, 
+    501, 602, 861,
+    862, 501, 1203, 983, 
+    1204, 501, 303, 
+    863, 604, 
+    866, 603, 700,
   ];
+
+
   this.type = Canabalt.Building.TYPE_NORMAL;
     
-    if(window.outerWidth < 575) {
-      shuffle(wB);
-      // this.width = 300 + Math.round(Math.random() * 1000);
-      this.width = wB[0];
-      this.height = 200 + Math.round(Math.random() * 100);
-    }
-  else {
-      // this.width = 300 + Math.round(Math.random() * 1000);
-      shuffle(wB);
-      this.width = wB[0];
-      this.height = 200 + Math.round(Math.random() * 100);
-  }
+  this.width = wB[c % wB.length];
+  this.height = 200 + Math.round(Math.random() * 100);
+  c++;
+ 
   this.gap = Math.round(this.game.speed * 300);
   this.totalWidth = this.width + this.gap;
 
@@ -597,7 +664,6 @@ Canabalt.Building = function(game, options) {
   this.element.className = 'building';
   this.element.style.height = String(this.height) + 'px';
   this.element.style.width = String(this.width) + 'px';
-
   this.draw();
 };
 Canabalt.DD = function(game, options) {
@@ -712,85 +778,88 @@ function get_random (list) {
 Canabalt.Building.prototype.draw = function() {
   if (!this.expired) {
     // 300
-    if(this.element.offsetWidth <= 300) {
+    if(this.element.offsetWidth === 300) {
       this.element.style.backgroundImage = 'url(img/buildings/b300_1.png)';
       this.element.style.backgroundSize = 'cover';
     }
-    else if(this.element.offsetWidth > 300 && this.element.offsetWidth <= 320) {
+    else if(this.element.offsetWidth === 301) {
       this.element.style.backgroundImage = 'url(img/buildings/b300_2.png)';
       this.element.style.backgroundSize = 'cover';
     }
-    else if(this.element.offsetWidth > 320 && this.element.offsetWidth <= 340) {
+    else if(this.element.offsetWidth === 302) {
       this.element.style.backgroundImage = 'url(img/buildings/b300_3.png)';
       this.element.style.backgroundSize = 'cover';
     }
-    else if(this.element.offsetWidth > 340 && this.element.offsetWidth <= 350) {
+    else if(this.element.offsetWidth === 303) {
       this.element.style.backgroundImage = 'url(img/buildings/b300_4.png)';
       this.element.style.backgroundSize = 'cover';
     }
     
     // 500
-    else if(this.element.offsetWidth >= 500 && this.element.offsetWidth <= 600) {
+    else if(this.element.offsetWidth === 500) {
       this.element.style.backgroundImage = 'url(img/buildings/b500_1.png)';
     }
+    else if(this.element.offsetWidth === 501) {
+      this.element.style.backgroundImage = 'url(img/buildings/b500_2.png)';
+    }
     //600 - 700
-    else if(this.element.offsetWidth > 600 && this.element.offsetWidth <= 610) {
+    else if(this.element.offsetWidth === 600) {
       this.element.style.backgroundImage = 'url(img/buildings/b600_1.png)';
     }
-    else if(this.element.offsetWidth > 610 && this.element.offsetWidth <= 620) {
+    else if(this.element.offsetWidth === 602) {
       this.element.style.backgroundImage = 'url(img/buildings/b600_2.png)';
     }
-    else if(this.element.offsetWidth > 620 && this.element.offsetWidth <= 630) {
+    else if(this.element.offsetWidth === 603) {
       this.element.style.backgroundImage = 'url(img/buildings/b600_3.png)';
     }
-    else if(this.element.offsetWidth > 630 && this.element.offsetWidth <= 640) {
+    else if(this.element.offsetWidth === 604) {
       this.element.style.backgroundImage = 'url(img/buildings/b600_4.png)';
     }
-    else if(this.element.offsetWidth > 640 && this.element.offsetWidth <= 650) {
+    else if(this.element.offsetWidth === 605) {
       this.element.style.backgroundImage = 'url(img/buildings/b600_5.png)';
     }
     //700 - 900
-    else if(this.element.offsetWidth >= 860 && this.element.offsetWidth <= 862) {
+    else if(this.element.offsetWidth === 860) {
       this.element.style.backgroundImage = 'url(img/buildings/b866_1.png)';
     }
-    else if(this.element.offsetWidth > 862 && this.element.offsetWidth <= 863) {
+    else if(this.element.offsetWidth === 861) {
       this.element.style.backgroundImage = 'url(img/buildings/b866_2.png)';
       this.element.style.backgroundSize = 'cover';
     }
-    else if(this.element.offsetWidth > 863 && this.element.offsetWidth <= 864) {
+    else if(this.element.offsetWidth === 862) {
       this.element.style.backgroundImage = 'url(img/buildings/b866_3.png)';
       this.element.style.backgroundSize = 'cover';
     }
-    else if(this.element.offsetWidth > 864 && this.element.offsetWidth <= 865) {
+    else if(this.element.offsetWidth === 863) {
       this.element.style.backgroundImage = 'url(img/buildings/b866_4.png)';
       this.element.style.backgroundSize = 'cover';
     }
-    else if(this.element.offsetWidth > 865 && this.element.offsetWidth <= 866) {
+    else if(this.element.offsetWidth === 866) {
       this.element.style.backgroundImage = 'url(img/buildings/b866_5.png)';
       this.element.style.backgroundSize = 'cover';
     }
     // 900 - 1100
-    else if(this.element.offsetWidth >= 999 && this.element.offsetWidth <= 1010) {
+    else if(this.element.offsetWidth === 981) {
       this.element.style.backgroundImage = 'url(img/buildings/b981_1.png)';
     }
-    else if(this.element.offsetWidth > 1010 && this.element.offsetWidth <= 1020) {
+    else if(this.element.offsetWidth === 982) {
       this.element.style.backgroundImage = 'url(img/buildings/b981_2.png)';
     }
-    else if(this.element.offsetWidth > 1020 && this.element.offsetWidth <= 1030) {
+    else if(this.element.offsetWidth === 983) {
       this.element.style.backgroundImage = 'url(img/buildings/b981_3.png)';
     }
     // 1100 - 1300
-    else if(this.element.offsetWidth >= 1199 && this.element.offsetWidth <= 1210) {
+    else if(this.element.offsetWidth === 1200) {
       this.element.style.backgroundImage = 'url(img/buildings/b1200_1.png)';
     }
-    else if(this.element.offsetWidth > 1210 && this.element.offsetWidth <= 1220) {
+    else if(this.element.offsetWidth === 1201) {
       this.element.style.backgroundImage = 'url(img/buildings/b1200_2.png)';
     }
-    else if(this.element.offsetWidth > 1220 && this.element.offsetWidth <= 1230) {
+    else if(this.element.offsetWidth === 1203) {
       this.element.style.backgroundImage = 'url(img/buildings/b1200_3.png)';
     }
-    else if(this.element.offsetWidth > 1230 && this.element.offsetWidth <= 1235) {
-      this.element.style.backgroundImage = 'url(img/buildings/b1200_3.png)';
+    else if(this.element.offsetWidth === 1204) {
+      this.element.style.backgroundImage = 'url(img/buildings/b1200_4.png)';
     }
 
     // else

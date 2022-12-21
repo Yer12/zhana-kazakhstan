@@ -458,6 +458,16 @@ a {
     text-align: center;
     color: #3770F6;
 }
+.person-modal-locked-text {
+    font-family: 'Supermolot';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 113.3%;
+    text-align: center;
+    color: #FFFFFF;
+    margin-top: 12px;
+}
 
 
 
@@ -574,4 +584,10 @@ a {
     .person-modal-content_header {
         margin-top: 50px;
     }
+    .person-modal-locked-text {
+        font-size: 12px;
+        line-height: 113.3%;
+        margin-top: 11px;
+    }
+    
 }
