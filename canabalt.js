@@ -732,7 +732,7 @@ Canabalt.Building.prototype.move = function(distance) {
 
   // Check if the end of the building + gap was reached and call
   // an appropriate action (spawn a new building?)
-  if (!this.endReached && (this.left + this.totalWidth - 50 <= this.game.viewportWidth)) {
+  if (!this.endReached && (this.left + this.totalWidth - 20 <= this.game.viewportWidth)) {
     this.game.addBuilding(new Canabalt.Building(this.game));
     this.endReached = true;
   }
@@ -764,7 +764,6 @@ Canabalt.DD.prototype.move = function(distance) {
   // Check if the end of the building + gap was reached and call
   // an appropriate action (spawn a new building?)
   if (!this.endReached && (this.left + this.totalWidth - 20 <= this.game.viewportWidth)) {
-    console.log(!this.endReached, this.left, '+', this.totalWidth, '<', this.game.viewportWidth,' =', (this.left + this.totalWidth <= this.game.viewportWidth));
     this.game.addBuilding(new Canabalt.Building(this.game));
     this.endReached = true;
   }
